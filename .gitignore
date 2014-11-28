@@ -17,7 +17,6 @@ config/deploy.rb
 config/s3.yml
 
 # Settings for environments.
-config/environments/*
 config/environments/development.rb
 config/environments/production.rb
 config/environments/staging.rb
