@@ -1,0 +1,140 @@
+<script>
+	var aux;
+	strSearch = '<%= params[:search] %>';
+	if (strSearch == 'Centro') {
+			strSearch = [-30.033916, -51.229162];
+		} else if (strSearch == 'Bom Fim') {
+			strSearch = [-30.032589914500445, -51.21292029564819];
+		} else if (strSearch == 'Rio Branco') {
+			strSearch = [-30.034362, -51.199036];
+		}
+		
+		if (strSearch && strSearch != '') {
+			if (typeof(strSearch) == 'string') {
+				var geocoder = new google.maps.Geocoder();
+				var _this = this;
+				strSearch = strSearch + ', Porto Alegre, Brasil';
+
+				geocoder.geocode({'address': strSearch}, function(results, status) {
+					aux = results;
+					if (status == google.maps.GeocoderStatus.OK) {
+ 
+						if (results.length > 0) {
+							var local = results[0].formatted_address;
+							var district, city, state;
+							max = results.length;
+							if (max > 3)max = 3;
+							var encontrou = false;
+							for (var j = 0; j < max; j++) {
+								var st=null;
+								var district=null;
+								var cep=null;
+								for (var i = 0; i < results[j].address_components.length; i++) {
+									if (results[j].address_components[i].types[0] == 'sublocality') {
+										district = results[j].address_components[i]['short_name'];
+									} else if (results[j].address_components[i].types[0] == 'locality') {
+										city = results[j].address_components[i]['short_name'];
+									} else if (results[j].address_components[i].types[0] == 'administrative_area_level_1') {
+										state = results[j].address_components[i]['short_name'];
+									}else if (results[j].address_components[i].types[0] == 'postal_code') {
+										cep = results[j].address_components[i]['short_name'];
+									}else if (results[j].address_components[i].types[0] == 'route') {
+										st = results[j].address_components[i]['short_name'];
+									}
+								}
+								if (st != null) {
+									encontrou = true;
+									local_html = "<div class='address-entry'><span class='searchPin'><img src='/images/rua.png' /></span>";
+									local_html = local_html + "<span class='cause-title'><a href='#' id='" + j + "'>" + st + "</a></span>&nbsp;&nbsp;&nbsp;<br />";
+									local_html = local_html + "<span style='color: #7a7a7a; font-size: 13px; font-weight: bold;'> "
+									if (district != null) {
+										local_html = local_html + "Bairro " + district + " - "
+									}
+									if (cep != null ) {
+										local_html = local_html + "CEP " + cep
+									}
+									local_html = local_html + "</span><br /></div>";
+									jQuery("#locais").prepend(local_html);
+								}
+							}
+						}					
+						if (!encontrou){
+							jQuery("#locais").prepend("Nenhum endereço encontrado<br>");
+						}
+					}
+					
+					jQuery('#locais a').click( function(){ 
+						$.cookie("map.lat", results[jQuery(this).attr('id')].geometry.location.lat(), { path: '/' });
+						$.cookie("map.lng", results[jQuery(this).attr('id')].geometry.location.lng(), { path: '/' });
+						$.cookie("map.zoom", 17, { path: '/' });						
+						window.location = "/"
+					});
+					
+					/*if (city == 'Porto Alegre' && state == 'RS') {		
+				        $.cookie("map.lat", results[0].geometry.location.lat());
+						$.cookie("map.lng", results[0].geometry.location.lng());
+						
+						_this.map.panTo(results[0].geometry.location);
+						_this.zoom(15);	
+					} else {
+						if ($.cookie("map.lat") == null && $.cookie("map.lng") == null) {
+							$.cookie("map.lat", _this.portoalegreLocation.lat());
+							$.cookie("map.lng", _this.portoalegreLocation.lng());
+						}
+
+						var position = new google.maps.LatLng($.cookie("map.lat"), $.cookie("map.lng"));
+						_this.map.panTo(position);
+					}*/
+				});
+			} else {
+				var position = new google.maps.LatLng(strSearch[0], strSearch[1]);
+				this.map.panTo(position);
+				
+				//$.cookie("map.lat", strSearch[0]);
+				//$.cookie("map.lng", strSearch[1]);
+				this.zoom(15);
+			}
+		}
+</script>	
+<div id="mdlSearch" class="modalBox">
+    <a class="close-button" href="javascript:;" onclick="$.closePopupLayer()">close</a>
+  <div class="ctm">
+  <div class="mdlPin"><!-- --></div>
+  <h2>Busca</h2>
+  <div class="ctl"><!-- --></div><div class="ctr"><!-- --></div></div>
+  <div class="cml">
+    <div class="cmr">
+      <div class="cmm">
+        <div class="mdlIn">
+          <h3>Resultados encontrados para: <span style='color: #7a7a7a'>"<%= params[:search]%>"</span></h3>
+          <span id='entries'>
+          <% if @causes.empty? %>
+           Nenhum resultado foi encontrado.
+          <% elsif @causes.length == 1 %>
+           Foi encontrado 1 item com o termo usado.
+          <% else %>
+		  	<span id='n_entries'>
+           Foram encontrados <%=h @causes.total_entries %> itens com o termo usado.<br />
+		   </span>
+		   <%= render :partial => 'select_box' %>
+          <% end %>
+          </span>
+          <span class="dotted-line" id="first-dotted-line"></span>
+          <div class='green-title'>Ruas</div>
+		  <div id="locais"></div>
+		  <br>
+		  <% unless @causes.empty? %>
+		  <span class="dotted-line"></span>
+		  <div class='green-title'>Causas</div>
+          <div id='causes'>
+			<%= render :partial => 'pagination' %>
+          </div>
+          <% end %>
+          <span class="dotted-line"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="cbm"><div class="cbl"><!-- --></div><div class="cbr"><!-- --></div></div>
+  <div class="pntDwn"><!-- --></div>
+</div>

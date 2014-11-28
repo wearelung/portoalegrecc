@@ -1,0 +1,113 @@
+2011-06-11  rocky <rockyb@rubyforge.org>
+
+	* .gemspec, Rakefile: Package name needs the kind of Ruby in it.
+	Sigh
+
+2011-06-11  rocky <rockyb@rubyforge.org>
+
+	* .gemspec, ChangeLog, NEWS, lib/require_relative.rb: Tolerance for
+	unpatched 1.9.2
+
+2011-05-26  rocky <rockyb@rubyforge.org>
+
+	* .gemspec, Rakefile, lib/version.rb: Package versioning for MRI
+	1.8.7 was wrong.
+
+2011-05-26  rocky <rockyb@rubyforge.org>
+
+	* .gemspec, README.textile, Rakefile, lib/require_relative.rb,
+	lib/version.rb, test/test-rr.rb: Handle MRI 1.8
+
+2011-04-22  rocky <rockyb@rubyforge.org>
+
+	* NEWS, lib/version.rb: Update for release.
+
+2011-04-22  rocky <rockyb@rubyforge.org>
+
+	* lib/require_relative.rb: Don't use
+	Rubinius::StaticScope#data_path, but mirror the logic for that until
+	an API is created that works like RequireRelative#abs_file. Also use
+	Rubinius::StaticScope.of_sender rather than backtrace. Thanks to
+	Evan Phoenix for advice on all of this.
+
+2011-02-14  rocky <rockyb@rubyforge.org>
+
+	* .gemspec, ChangeLog, NEWS, Rakefile, lib/require_relative.rb,
+	lib/version.rb: Allow this to be build on 1.9.2-nframe as mostly a
+	no-op.
+
+2010-09-23  rocky <rockyb@rubyforge.org>
+
+	* .gemspec: Need symbol in defined?
+
+2010-09-23  rocky <rockyb@rubyforge.org>
+
+	* .gemspec, Rakefile, lib/version.rb: Rakefile: check to see if
+	require_relative is already installed. .gemspec: cut-n-paste error
+	version.rb: bump version #
+
+2010-09-22  rocky <rockyb@rubyforge.org>
+
+	* .gemspec: Bang on gemspec Ruby version. For rubinius 1.0.1 .. 1.1
+	Gem.ruby_version is 1.8.7. I'm imagining 1.9 features will report
+	1.9 or some such thing.
+
+2010-09-22  rocky <rockyb@rubyforge.org>
+
+	* .gemspec, NEWS, lib/version.rb: Update gemspec homepage link
+
+2010-09-22  rocky <rockyb@rubyforge.org>
+
+	* README.textile: More README tweaking
+
+2010-09-22  rocky <rockyb@rubyforge.org>
+
+	* README.textile: More README tweaking
+
+2010-09-22  rocky <rockyb@rubyforge.org>
+
+	* README.textile: textile hacking.
+
+2010-09-22  rocky <rockyb@rubyforge.org>
+
+	* .gemspec, README.textile: Get version ranges in correctly.
+
+2010-09-22  rocky <rockyb@rubyforge.org>
+
+	* .gemspec, ChangeLog, Makefile, NEWS, README.textile, Rakefile,
+	lib/Makefile, test/test-rr.rb: Get ready for release.
+
+2010-09-20  rocky <rockyb@rubyforge.org>
+
+	* lib/version.rb: Set version number back to what it was
+
+2010-09-20  rocky <rockyb@rubyforge.org>
+
+	* Rakefile, lib/require_relative.rb, test/test-rr.rb: 
+	require_relative: Add RequireRelative::abs_file which is like
+	__FILE__ but gives the absolute location.  Rakefile: Had broken
+	tests because rake's default mechanism appears to be broken here and
+	I don't know why.  test-rr.rb: Reinstate more stringent testing -
+	chdir before require_relative
+
+2010-09-20  rocky <rockyb@rubyforge.org>
+
+	* .gemspec, Makefile, Rakefile, lib/.gitignore, lib/Makefile,
+	lib/version.rb: Administrivia: Add packaging, a .gemspec, make
+	comptaibility and so on.
+
+2010-09-19  rocky <rockyb@rubyforge.org>
+
+	* ChangeLog, Rakefile, lib/require_relative.rb,
+	require_relative.rb, test/test-rr.rb: Gem packaging - this time, for
+	sure!
+
+2010-09-18  rocky <rockyb@rubyforge.org>
+
+	* .gitignore, ChangeLog, README.textile, Rakefile: Bang on Rakefile
+	for testing packaging and installing.
+
+2010-09-18  rvm <rocky-rvm@static-71-183-236-17.nycmny.fios.verizon.net>
+
+	* Initial require_relative code.
+

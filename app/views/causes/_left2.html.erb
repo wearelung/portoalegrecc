@@ -1,0 +1,87 @@
+<script type="text/javascript">
+  links = new Array("http://www.eucurtoeucuido.com.br/","http://www.parceirosvoluntarios.org.br/","http://www.unisinos.br/", "http://www.portoalegre.rs.gov.br/");  
+  
+  imagemAtual = 0;
+  numImagens = links.length;
+  
+  function cicloImagens(){
+      imagemAnterior = imagemAtual;
+      imagemAtual++;
+      if (imagemAtual == numImagens) {
+          imagemAtual = 0;
+      }
+      jQuery("#left_banner" + imagemAnterior.toString()).hide();
+      jQuery("#left a.logo-unisinos").attr("href", links[imagemAtual]);
+      jQuery("#left_banner" + imagemAtual.toString()).fadeIn(800);
+      
+      setTimeout("cicloImagens()", 3 * 1000);
+  }
+  jQuery(document).ready(function() {
+    cicloImagens();
+  });
+</script>
+<div id="left">
+
+  <div id="bgLogo">
+    <h1><a href="/" id="logo"></a>PORTOALEGRE.CC</h1>
+  </div>
+  
+  <div id="boxLeft">
+    <div class="content">
+      <h2 class="tit-explore">POR QUE O PROJETO</h2>
+      <div id="small_map" style="width:186px; height:168px;"></div>
+
+      <div id="crieCausa2">
+        <a href="/" class="btn-voltarparaomapa">VOLTAR PARA O MAPA</a>
+      </div>
+      <ul id="redesSociais">
+        <li class="selected"><a class="facebook" href="javascript:;">FACEBOOK</a></li>
+        <li><a class="twitter" href="javascript:;">TWITTER</a></li>
+      </ul>
+      <span class="break"><!--  --></span>
+      
+      <div class="social-media-container">
+        <div class="social-media-facebook social-media-content">
+          <script src="http://connect.facebook.net/pt_BR/all.js#xfbml=1"></script><fb:fan profile_id="152531008140422" width="225" height="216" show_faces="true" stream="false" header="false" css="http://www.portoalegre.cc/stylesheets/likebox.css?33"></fb:fan>
+        </div>
+
+        <div class="social-media-twitter social-media-content hide">
+          <div class="column-left">
+            <img class="photo" src="/img/avatar.jpg" alt="" />
+
+            <a class="button button-rt" href="javascript:;" target="_blank"><span>RT</span></a>
+            <a class="button button-reply" href="javascript:;" target="_blank"><span>REPLY</span></a>
+          </div>
+
+          <div class="column-right">
+            <h3 class="fullname"></h3>
+            <span class="locale"></span>
+
+            <p class="tweet"></p>
+
+            <span class="time"></span>
+          </div>
+          <span class="break"><!--  --></span>
+
+          <div class="links">
+            <a class="prev" href="javascript:;">Anterior</a>
+            <a class="next" href="javascript:;">Próximo</a>
+            <a class="follow" href="http://twitter.com/portoalegrecc" target="_blank">Siga a gente</a>
+          </div>
+          <span class="break"><!--  --></span>
+        </div>
+      </div>
+      
+      <a class="logo-unisinos" href="http://www.unisinos.br/" onclick="GA.trackEvent('banners', 'clique', 'unisinos');" target="_blank">
+        <img id='left_banner0' src="/images/eu_curto.png" style='display: none;'></img>
+        <img id='left_banner1' src="/images/parceiros_voluntarios.png" style='display: none;'></img>
+				<img id='left_banner2' src="/images/unisinos.png" style='display: none;'></img>
+        <img id='left_banner3' src="/images/pref_poa.png" style='display: none;'></img>
+      </a>            
+    </div>
+  </div>
+
+</div>
+<style type="text/css">
+  #boxLeft {z-index:9999; height: 836px;}
+</style>

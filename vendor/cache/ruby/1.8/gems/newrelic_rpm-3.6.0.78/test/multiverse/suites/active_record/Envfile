@@ -1,0 +1,12 @@
+gemfile <<-RB
+  if RUBY_VERSION == '1.8.6'
+    gem 'activerecord', '2.3.14'
+  elsif RUBY_PLATFORM == 'java'
+    gem 'activerecord-jdbcsqlite3-adapter', '1.2.2.1'
+    gem 'jdbc-sqlite3', '3.7.2'
+    gem 'activerecord'
+  else
+    gem 'activerecord'
+    gem 'sqlite3', '~> 1.3.5'
+  end
+RB

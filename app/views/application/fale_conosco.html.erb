@@ -1,0 +1,105 @@
+<div id="mdlSobreProjeto" class="modalBox">
+    <a class="close-button" href="javascript:;" onclick="$.closePopupLayer()">close</a>
+	<div class="ctm">
+	<div class="mdlPin"><!-- --></div>
+	<h2>Fale Conosco</h2>
+	<div class="ctl"><!-- --></div><div class="ctr"><!-- --></div></div>
+	<div class="cml">
+		<div class="cmr">
+			<div class="cmm">
+				<div class="mdlIn sobreProjeto">
+					<h3>Queremos ouvir você</h3>
+					
+					<p>Não é só Porto Alegre que pode melhorar com suas ideias. Caso você tenha algum comentário, crí­tica ou sugestão para a plataforma PortoAlegre.cc, entre em contato conosco.</p>
+					
+					<p id="feedbackMessage"></p>
+					<form name="fale_conosco" action="send_contact_form">
+						<fieldset id="newCauseForm" class="mb15">
+							<label for="name">Nome</label>
+							<input id="name" class="required" name="name" type="text" style="width:400px;" />
+							
+							<label for="email">Email</label>
+							<input id="email"class="required" name="email" type="text" style="width:400px;" />
+							
+							<label for="telefone">Telefone</label>
+							<input id="telefone" class="required" name="telefone" type="text" style="width:400px;" />
+	
+							<div class="assunto">
+								<label>Assunto</label>
+								
+								<a href="javascript:;" class="combo">
+								    <span>ideias, cri­ticas ou elogios</span>                                
+								</a>
+								
+	                            <div class="combo-content hidden">
+									<div class="scroll-pane">
+			                            <ul class="comboLst">
+			                                <li><a class="selected" href="javascript:;">ideias, crí­ticas ou elogios</a></li>
+			                            	<li><a href="javascript:;">sugestões de novas funcionalidades</a></li>
+			                            	<li><a href="javascript:;">problemas no site</a></li>
+			                            	<li><a href="javascript:;">parcerias</a></li>
+			                            	<li><a href="javascript:;">quero financiar o projeto</a></li>
+			                            	<li><a href="javascript:;">cessão de acervo de fotos, ví­deo e afins</a></li>
+			                            </ul>
+			                        </div>
+			                    </div>
+	                        </div>
+							<span class="break"><!-- --></span>
+	
+							<label for="mensagem">Mensagem</label>
+							<textarea id="mensagem" class="required" name="mensagem" style="width:400px;height:110px;" onkeydown="limitTextArea(this, 525, '#abstractLimit')" onblur="limitTextArea(this, 525, '#abstractLimit')"></textarea><br />
+							<span class="ctdor"><strong id="abstractLimit">525</strong> caracteres restantes</span>
+						</fieldset>
+
+						<div class="boxBottom">
+						<a href="javascript:;" class="btn fl enviar">ENVIAR</a>
+					</form>
+					<%#=
+					<input type="image" src="img/px.gif" class="btn fl postar" value="POSTAR" />
+					<a href="javascript:;" class="btn fl postar">POSTAR</a>
+					<input type="text" />
+					<span>Sed fermentum vehicula rutrum. Aliquam erat volutpat. Nunc sit amet ligula velit. </span>
+					%>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="cbm"><div class="cbl"><!-- --></div><div class="cbr"><!-- --></div></div>
+	<div class="pntDwn"><!-- --></div>
+</div>
+<script type="text/javascript">
+	$('.assunto .combo-content a').each(function(i) {
+		$(this).bind('click', function() {
+			var value = $(this).text();
+			var parent = $(this).parents('.combo-content').parent();
+			parent.find('span').html(value);
+			parent.find('.combo-content').addClass('hidden');
+			parent.find('.combo-content a').attr('class', '');
+			$(this).addClass('selected');
+		});
+	});
+
+	$('.assunto .combo').bind('click', function() {
+		$(this).parent().find('.combo-content').toggleClass('hidden');
+	});
+
+	$('.assunto label').bind('click', function() {
+		$(this).parent().find('.combo-content').removeClass('hidden');
+	});
+	
+	$('a.enviar').bind('click', function() {
+		var validationMessages = [
+			'Digite seu nome',
+			'Digite seu email',
+			'Digite seu telefone',
+			'Digite sua mensagem'
+		];
+		
+		sendForm(this, {assunto: $('.comboLst .selected').text()}, validationMessages);
+
+	});
+</script>
+<script type="text/javascript">
+	GA.track('/site/outros/fale_conosco');
+</script>

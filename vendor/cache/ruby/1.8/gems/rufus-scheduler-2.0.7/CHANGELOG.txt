@@ -1,0 +1,44 @@
+
+= rufus-scheduler CHANGELOG.txt
+
+
+== rufus-scheduler - 2.0.7    released 2010/11/09
+
+- cron and timezones, thanks Tanzeeb Khalili
+- Scheduler#trigger_threads, thanks Tim Uckun
+
+
+== rufus-scheduler - 2.0.6    released 2010/05/01
+
+- timeout jobs not outliving their parent job anymore, thanks Joel Wood
+
+
+== rufus-scheduler - 2.0.5    released 2010/03/02
+
+- fixed parse_time_string(s) issue, thanks Gonzalo Suarez
+
+
+== rufus-scheduler - 2.0.4    released 2010/02/12
+
+- addressing issue with every and timeout, thanks Tony Day
+
+
+== rufus-scheduler - 2.0.3    released 2009/11/04
+
+- made sure Schedulables with a call(job) method were OK when passed as second
+  parameter (thanks Nate Wiger)
+
+
+== rufus-scheduler - 2.0.2    released 2009/10/31
+
+- unified JobQueue and CronJobQueue, and handed @last_second management to the
+  latter
+- #trigger_block method for easier override
+- passing :job => job among Schedulable trigger parameters
+
+
+== rufus-scheduler - 2.0.1    released 2009/05/07
+== rufus-scheduler - 2.0.0    released 2009/05/07
+
+- initial release
+

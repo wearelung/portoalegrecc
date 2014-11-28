@@ -1,0 +1,23 @@
+0.0.5  (06-12-11) Fleetwood release
+
+Allow this to work on Ruby MRI 1.8 and 1.9. On 1.9 we don't do
+anything for require_relative, but in 1.9.2+thread_frame we add a
+relible abs_path.  This package is provided on 1.9 is there for
+compatibility and for abs_path for a threadframe-enabled 1.9.2.
+
+On MRI abs_path may be unreliable in the face of Dir.chdir.
+
+
+0.0.4  (04-22-11)
+
+- Using an undocumented API has changed in Rubinius 1.2.4dev.  Down
+  the line, we need to get an API for RequireRelative#abs_file in
+  Rubinius.  Until then, we'll have to change code.
+
+0.0.3  (09-27-10)
+
+- Small .gemspec packaging issues
+
+0.0.2  (09-22-10)
+
+- First public release.

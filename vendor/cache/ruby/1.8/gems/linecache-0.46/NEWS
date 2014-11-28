@@ -1,0 +1,39 @@
+0.46
+06-12-19
+- A require_relative dependency snuck in. 
+  Add a rbx-require-relative to handle this.
+
+0.45
+06-12-11
+- Support for syntax highlighting and caching eval strings. The former
+  is used in rb8-trepanning.
+
+0.43
+06-12-08
+- tolerance for finding windows extension in lib rather than ext.
+
+0.41 
+- add test/data/* to gem.
+
+0.4
+- Credit Ryan Davis and ParseTree.
+
+0.3
+- Add tracelines: get line numbers that can be stopped at.
+
+- Add routines to allow line-number 
+  remapping and filename remapping. 
+
+- Add access methods to get the number of lines in a file.
+
+0.2
+- Make this work with ruby-debug-base. Add reload-on-change parameters.
+  add checkcache, cache, cached? sha1, and stat methods. 
+  
+- Use SCRIPT_LINES__.
+
+0.1
+
+- Initial release of LineCache, a module for reading and caching lines.
+
+$Id: NEWS 268 2011-06-19 08:48:31Z rockyb $

@@ -1,0 +1,106 @@
+<style>
+    
+    #mdlSearch .categoria {
+        float: left;
+        margin-top: 5px;
+    }
+    
+    #mdlSearch .categoria label {
+        color: #415157;
+    }
+    
+    #mdlSearch .categoria .combo {
+        display: block;
+        background: url(/img/bg-combo.gif) no-repeat;
+        color: #FFF;
+        width: 185px;
+        height: 24px;
+        padding: 6px 0 0 15px;
+        text-decoration: none;
+    }
+    
+    #mdlSearch .categoria .combo span {
+        display: block;
+        width: 145px;
+        font-size: 15px;
+        font-weight: bold;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+    
+    #mdlSearch .categoria .comboLst {
+        background: #415157;
+        width: 184px;
+        padding: 5px 0 5px 15px;
+        margin: 1px 0 0 0;
+        position: absolute;
+        z-index: 10;
+    }
+    
+    #mdlSearch .categoria .comboLst li {
+        margin: 0 0 5px 0;
+    }
+    
+    #mdlSearch .categoria .comboLst li a {
+        display: block;
+        color: #FFF;
+        font-size: 15px;
+        font-weight: bold;
+        text-decoration: none;
+    }
+    
+    #mdlSearch .categoria .comboLst li a:hover {
+        color: #7DBD00;
+    }
+    
+    #mdlSearch .categoria .on {
+        display: block;
+    }
+</style>
+<div class="categoria">
+    <a href="javascript:;" class="combo"><span>Selecione</span></a>
+    <div class="combo-content hidden">
+        <div class="scroll-pane">
+            <ul class="comboLst">
+                <% @categories.each do |category| %>
+                <li>
+                    <a id="category_<%= category.id %>" class="<%= category.id == 10 ? 'selected' : '' %>" href="javascript:;"><%= category.name %></a>
+                </li>
+                <% end %>
+            </ul>
+        </div>
+    </div>
+</div>
+<script>
+    $('.categoria .combo-content a').each(function(i){
+        $(this).bind('click', function(){
+            var value = $(this).text();
+            var parent = $(this).parents('.combo-content').parent();
+            parent.find('span').html(value);
+            parent.find('.combo-content').addClass('hidden');
+            parent.find('.combo-content a').attr('class', '');
+            $(this).addClass('selected');
+        });
+    });
+    
+    $('.categoria .combo').bind('click', function(){
+        $(this).parent().find('.combo-content').toggleClass('hidden');
+    });
+    
+    $('.categoria label').bind('click', function(){
+        $(this).parent().find('.combo-content').removeClass('hidden');
+    });
+    
+    $('#newCauseForm input[name=title]').keyup(function(){
+        $('#titleLimit').text(30 - $(this).val().length);
+    });
+    var data = {
+        page: '1'
+    }
+	//url = jQuery('.pagination a').attr('href');
+    url = '<%= search_causes_path(:search => params[:search] )%>';
+	$('.categoria .comboLst a').click(function(){
+        $.cookie("category", $('#mdlSearch .categoria a.selected').attr('id').replace('category_', ''));
+		$.get(url, data, null, "script");
+    });
+</script>

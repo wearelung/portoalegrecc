@@ -1,0 +1,27 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  author: MyString
+  title: MyString
+  abstract: MyText
+  latitude: 9.99
+  longitude: 9.99
+  local: MyString
+  district: MyString
+  is_rejected: false
+  views: 1
+  category: 
+  user: 
+
+two:
+  author: MyString
+  title: MyString
+  abstract: MyText
+  latitude: 9.99
+  longitude: 9.99
+  local: MyString
+  district: MyString
+  is_rejected: false
+  views: 1
+  category: 
+  user: 

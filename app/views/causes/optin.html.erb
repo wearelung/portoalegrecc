@@ -1,0 +1,89 @@
+<div id="mdlOptin" class="modalBox optin">
+    <a class="close-button" href="javascript:;" onclick="ajustar()">close</a>
+    <div class="ctm">
+    <div class="mdlPin"><!-- --></div>
+    <h2>Nova Causa</h2> 
+    <div class="ctl"><!-- --></div><div class="ctr"><!-- --></div></div>
+    <div class="cml">
+        <div class="cmr">
+            <div class="cmm">
+                <div class="mdlIn escrever pd0">
+                    <h3>Sua causa foi cadastrada!</h3>
+                    
+                    <p>Obrigado, sua causa foi criada e enviada com sucesso para o PortoAlegrecc, agora você pode compartilhá-la com seus amigos através das redes sociais. Você também pode encaminhar a causa para o projeto <b>Fala Porto Alegre</b>.
+                    </p>
+
+                    <div class="text">
+                      <h4>Compartilhar a causa</h4>
+                      <div class="side s190">
+                        <!-- AddThis Button BEGIN -->
+                      <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
+                        <a class="addthis_button_facebook"></a>
+                        <a class="addthis_button_twitter"></a>
+                        <a class="addthis_button_email"></a>
+                        <a class="addthis_button_orkut"></a>
+                        <a class="addthis_button_compact"></a>
+                      </div>
+                      <script type="text/javascript">
+                        var addthis_config = {
+                          "data_track_clickback" : true
+                        };
+                      </script>
+                      <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4d889daf1a5fa592"></script>
+                      <!-- AddThis Button END -->
+                      </div>
+                      <input type="text" value="http://www.portoalegre.cc<%= @cause.url %>" size="22" />
+                    </div>
+                    <p class="clear"></p>
+
+                    <div class="text">
+                    <div id="unavailable">Temporariamente indisponível</div>
+                    <h4>Encaminhar causa para o Fala Porto Alegre</h4>
+                      <div class="side pd10" id="sendfalapoa">
+                        <input type="checkbox" disabled="disabled" hint="Desabilitado temporariamente"/>
+                      </div>
+                      <div class="side s300">
+                        Desejo encaminhar minha causa para o projeto Fala Porto Alegre, o serviço de atendimento ao cidadão da prefeitura da cidade.
+                      </div>
+                      <div class="side">
+                        <%= image_tag "fala_poa/fala_poa_logo.png" %>
+                      </div>
+                    <h4>Ponto de referência</h4>
+                      <div class="side pd10 s300">
+                        <input id="reference" name="reference" type="text" style="width:245px;"  disabled="disabled" />
+                      </div>
+                      <div class="side pd10 s300">
+                        A prefeitura necessita de um ponto de referência claro para melhor atendê-lo (ex: Boca de Lobo em frente ao número 596).
+                      </div>
+                    </div>
+                    <br class="clear" />
+                
+                    <div class="boxBottom">
+                      <a href="javascript:;" class="btn fl finalizar">Finalizar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="cbm"><div class="cbl"><!-- --></div><div class="cbr"><!-- --></div></div>
+    <div class="pntDwn"><!-- --></div>
+</div>
+
+<script type="text/javascript">
+  $('.boxBottom .finalizar').bind('click', function() {
+    if($("#sendfalapoa input:checkbox").is(':checked')) {
+      $.ajax({
+        url: "<%=send_to_falapoa_path(@cause.id)%>",
+        data: { reference: $("#reference").val() },
+        dataType: 'json',
+        success: function(result) {
+          if (result.success) {
+            location.reload(true);
+          }
+        } 
+      });
+    } else {
+      location.reload(true);
+    }
+  });
+</script>

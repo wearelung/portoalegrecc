@@ -1,0 +1,67 @@
+<div id="mdlSobreProjeto" class="modalBox">
+    <a class="close-button" href="javascript:;" onclick="$.closePopupLayer()">close</a>
+	<div class="ctm">
+	<div class="mdlPin"><!-- --></div>
+	<h2>Seja um voluntário</h2>
+	<div class="ctl"><!-- --></div><div class="ctr"><!-- --></div></div>
+	<div class="cml">
+		<div class="cmr">
+			<div class="cmm">
+				<div class="mdlIn sobreProjeto">
+					<h3>Abrace esta causa</h3>
+					<p>O PortoAlegre.CC está junto com a Parceiros Voluntários no movimento do Voluntariado, que tem o objetivo de despertar a responsabilidade de cada um para a conservação e o cuidado com a cidade. Se você se preocupa com questões como o trânsito, os parques, a limpeza, entre tantas outras que afetam o dia-a-dia dos porto-alegrenses, você pode fazer muito mais do que imagina. Seja você também um cuidador da cidade e ajude a transformar as causas que estão no mapa em ações.</p>
+
+					<p id="feedbackMessage"></p>
+					<form name="seja_um_voluntario" action="send_volunteer_form">
+						<fieldset id="newCauseForm" class="mb15">
+							<label for="name">Nome</label>
+							<input id="name" class="required" name="name" type="text" style="width:400px;" />
+	
+							<label for="email">Email</label>
+							<input id="email" class="required" name="email" type="text" style="width:400px;" />
+							
+							<label for="telefone">Telefone</label>
+							<input id="telefone" class="required" name="telefone" type="text" style="width:400px;" />
+							
+							<label for="pagina">Página pessoal - twitter, facebook, orkut e blog</label>
+							<input id="pagina" class="required" name="pagina" type="text" style="width:400px;" />
+							
+							<label for="mensagem">Como você quer ajudar o PortoAlegre.cc?</label>
+							<textarea id="mensagem" class="required" name="mensagem" style="width:400px;height:110px;" onkeydown="limitTextArea(this, 525, '#abstractLimit')" onblur="limitTextArea(this, 525, '#abstractLimit')"></textarea><br />
+							<span class="ctdor"><strong id="abstractLimit">525</strong> caracteres restantes</span>
+						</fieldset>
+					
+
+						<div class="boxBottom">
+						<a href="javascript:;" class="btn fl enviar">ENVIAR</a>
+					</form>
+					<%#=
+					<input type="image" src="img/px.gif" class="btn fl postar" value="POSTAR" />
+					<a href="javascript:;" class="btn fl postar">POSTAR</a>
+					<input type="text" />
+					<span>Sed fermentum vehicula rutrum. Aliquam erat volutpat. Nunc sit amet ligula velit. </span>
+					%>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="cbm"><div class="cbl"><!-- --></div><div class="cbr"><!-- --></div></div>
+	<div class="pntDwn"><!-- --></div>
+</div>
+<script type="text/javascript">
+	$('a.enviar').bind('click', function() {
+			var validationMessages = [
+	              'Digite seu nome',
+	              'Digite seu email',
+	              'Digite seu telefone',
+	              'Digite sua página',
+	              'Digite sua mensagem'
+	        ];
+            
+        	sendForm(this, null, validationMessages);
+		});
+</script>
+<script type="text/javascript">
+	GA.track('/site/outros/seja_um_voluntario');
+</script>

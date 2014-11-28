@@ -1,0 +1,243 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+pt:
+  # labels gerais
+  sign_up: "Cadastre-se"
+  cancel: "Cancelar"
+  
+  # formatos de data e hora
+  date:
+    formats:
+      default: "%d de %B de %Y"
+      short: "%d de %B"
+      long: "%d de %B de %Y"
+      simple: "%d/%m/%Y"
+    
+    day_names: [Domingo, Segunda, Terça, Quarta, Quinta, Sexta, Sábado]
+    abbr_day_names: [Dom, Seg, Ter, Qua, Qui, Sex, Sáb]
+    month_names: [~, janeiro, fevereiro, março, abril, maio, junho, julho, agosto, setembro, outubro, novembro, dezembro]
+    abbr_month_names: [~, Jan, Fev, Mar, Abr, Mai, Jun, Jul, Ago, Set, Out, Nov, Dez]
+    order: [:day, :month, :year]
+    
+  time:
+    formats:
+      default: "%A, %d de %B de %Y, %H:%M h"
+      short: "%d/%m, %H:%M h"
+      long: "%A, %d de %B de %Y, %H:%M h"
+      simple: "%d/%m/%Y"
+    am: ''
+    pm: ''
+  
+  # distancia do tempo em palavras
+  datetime:
+    distance_in_words:
+      half_a_minute: 'meio minuto'
+      less_than_x_seconds:
+        one: 'menos de 1 segundo'
+        other: 'menos de {{count}} segundos'
+      
+      x_seconds:
+        one: '1 segundo'
+        other: '{{count}} segundos'
+      
+      less_than_x_minutes:
+        one: 'menos de um minuto'
+        other: 'menos de {{count}} minutos'
+      
+      x_minutes:
+        one: '1 minuto'
+        other: '{{count}} minutos'
+      
+      about_x_hours:
+        one: '1 hora'
+        other: '{{count}} horas'
+      
+      x_days:
+        one: '1 dia'
+        other: '{{count}} dias'
+      
+      about_x_months:
+        one: '1 mês'
+        other: '{{count}} meses'
+      
+      x_months:
+        one: '1 mês'
+        other: '{{count}} meses'
+      
+      about_x_years:
+        one: '1 ano'
+        other: '{{count}} anos'
+      
+      over_x_years:
+        one: 'mais de 1 ano'
+        other: 'mais de {{count}} anos'
+ 
+      almost_x_years:
+        one: 'quase 1 ano'
+        other: 'quase {{count}} anos'
+    
+    prompts:
+      year: "Ano"
+      month: "Mês"
+      day: "Dia"
+      hour: "Hora"
+      minute: "Minuto"
+      second: "Segundos"
+ 
+  # numeros
+  number:
+    format:
+      precision: 3
+      separator: ','
+      delimiter: '.'
+    currency:
+      format:
+        unit: 'R$'
+        precision: 2
+        format: '%u %n'
+        separator: ','
+        delimiter: '.'
+    percentage:
+      format:
+        delimiter: '.'
+    precision:
+      format:
+        delimiter: '.'
+    human:
+      format:
+        precision: 1
+        delimiter: '.'
+      storage_units:
+        format: "%n %u"
+        units:
+          byte:
+            one: "Byte"
+            other: "Bytes"
+          kb: "KB"
+          mb: "MB"
+          gb: "GB"
+          tb: "TB"
+ 
+  # Usado no Array.to_sentence
+  support:
+    array:
+      words_connector: ", "
+      two_words_connector: " e "
+      last_word_connector: " e "
+
+  #views
+  feedback:
+    self: "Fale Conosco"
+    subject: "Assunto"
+    message: "Mensagem"
+    sent_message: "Sua mensagem foi enviada com sucesso!"
+    error: "Todos os campos devem ser preenchidos!"
+    send: "Enviar"
+
+  # ActiveRecord
+  activerecord:
+    errors:
+      template:
+        header:
+          one: "Opa! Foi encontrado 1 erro."
+          other: "Opa! Foram encontrados {{count}} erros."
+        body: "Por favor, verifique o(s) seguinte(s) campo(s):"
+      messages:
+        inclusion: "não está incluído na lista"
+        exclusion: "não está disponível"
+        invalid: "não é válido"
+        invalid_f: "não é válida"
+        confirmation: "não está de acordo com a confirmação"
+        accepted: "deve ser aceito"
+        empty: "não pode ficar vazio"
+        blank: "não pode ficar em branco"
+        too_long: "é muito longo (máximo: {{count}} caracteres)"
+        too_short: "é muito curto (mínimo: {{count}} caracteres)"
+        wrong_length: "não possui o tamanho esperado (esperado: {{count}} caracteres)"
+        taken: "já está em uso"
+        email_taken: "E-mail já está em uso"
+        not_a_number: "não é um número"
+        greater_than: "deve ser maior do que {{count}}"
+        greater_than_or_equal_to: "deve ser maior ou igual a {{count}}"
+        equal_to: "deve ser igual a {{count}}"
+        less_than: "deve ser menor do que {{count}}"
+        less_than_or_equal_to: "deve ser menor ou igual a {{count}}"
+        odd: "deve ser ímpar"
+        even: "deve ser par"
+        record_invalid: "A validação falhou: %{errors}"
+        user_not_active: "Usuário não está ativo"
+        password_empty: "Você deve preencher sua senha"
+        password_incorrect: "Senha incorreta"
+        not_modified: "não foi modificado"
+        phone_must_have_been_confirmed:  "Você só pode alterar seu e-mail depois que confirmar seu telefone"
+        'not found': "não encontrado"
+    models:    
+      user: "perfil"
+      'current user': "perfil"  
+      contact: "contato"
+      corneta: "corneta"
+      'corneta error': "corneta"
+      comment: "comentário"
+    attributes:
+      user:
+        name: "Nome"
+        nickname: "Apelido"
+        gender: "Sexo"
+        email: "E-mail"
+        phone_no: "Celular"
+        password: "Senha"
+        password_confirmation: "Confirmar Senha"
+        invitation_code: "Código de Ativação"
+        city: "Cidade"
+        country: "País"
+        current_password: "Senha atual"
+        balance: "Saldo"
+        team: "Time"
+        tos: "Termo de Serviço"
+      contact:
+        name: "Nome"
+        phone: "Celular"
+        email: "E-mail"
+        phone_no: "Celular"
+        team: "Time"
+      corneta:
+        title: "Título"
+        duration: "Duração"
+        creation: "Criação"
+        file: "Arquivo"
+        format: "Formato"
+        type: "Tipo"
+        audio_content_type: "Arquivo Inválido!"
+      corneta_comment:
+        text: "Comentário"
+    labels:
+      user:
+        name: "Nome"
+        nickname: "Apelido"	
+        email: "E-mail"
+        team: "Time"
+        gender: "Sexo" 
+        country: "País"
+        city: "Cidade"
+        phone_no: "Celular"
+        photo: "Foto"
+        show_corneta: "Exibir"
+        show_email: "Exibir e-mail para"
+        show_phone: "Exibir telefone para"
+        show_activities: "Exibir atividades para"
+        current_password: "Senha atual"
+        password: "Senha"
+        report_current_password: "Senha atual"
+        report_new_password: "Nova senha"
+        confirm_new_password: "Confirme a nova senha"
+        
+  user:
+    notices:
+      username_already_registered: "Nome de usuário já registrado"
+      twitter_already_registered: "Twitter já associado a outro usuário"
+      facebook_already_registered: "Facebook já associado a outro usuário"
+      google_email_already_registered: "Google mail já associado a outro usuário"
+      twitter_incorrect_associated: "O usuário informado não corresponde ao Twitter."
+      google_email_incorrect_associated: "O usuário informado não corresponde ao Google mail."
+      facebook_incorrect_associated: "O usuário informado não corresponde ao Facebook."

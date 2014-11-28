@@ -1,0 +1,239 @@
+<div id="mdlLogin" class="modalBox2">
+  <a class="close-button" href="javascript:;" onclick="$.closePopupLayer()">close</a>
+  <div class="ctm">
+  <h2>Conecte-se</h2> 
+  <div class="ctl"><!-- --></div><div class="ctr"><!-- --></div></div>
+  <div class="cml">
+    <div class="cmr">
+      <div class="cmm">
+        <div class="mdlIn login">
+          <div id="loginBox">
+            <fieldset class="mb15">
+              <h3>Já é cadastrado?</h3>
+              <input id="usernameLogin" type="text" style="width:154px; padding:8px 10px; float:left;" value="Digite seu usuário" class="tc-lightgray" onfocus="$(this).removeClass('error'); if ($(this).hasClass('tc-lightgray')) { this.value = ''; this.className = '';}" onblur="if (this.value == '') { this.value = 'Digite seu usuário'; this.className = 'tc-lightgray';}" />
+              <a href="javascript:;" class="btn-entrar"></a>
+              <span class="break"><!-- --></span>
+              <span class="tc-red ts11" id="feedbackUsername"></span>
+            </fieldset>
+            
+            <span class="dotted-line"><!--  --></span>
+
+            <fieldset>
+              <h3>Cadastre-se agora:</h3>
+              <input id="usernameRegistration" type="text" style="width:154px; padding:8px 10px; float:left;" onkeyup="checkUsernameAvailability()" value="Defina seu nome de usuário" class="tc-lightgray" onfocus="$(this).removeClass('error'); if ($(this).hasClass('tc-lightgray')) { this.value = ''; this.className = '';}" onblur="if (this.value == '') { this.value = 'Defina seu nome de usuário'; this.className = 'tc-lightgray';}" />
+              <a href="javascript:;" class="btn-registrar"></a>
+              <span class="break"><!-- --></span>
+              <span class="tc-gray ts11" id="availableUsername"></span>
+            </fieldset>
+          </div>
+          
+          <div id="registrationBox2" style="display:none;">
+            <p style="text-align:center;">Selecione um dos serviços para conectar-se:</p>
+            <ul id="boxRedes">
+              <li class="twitter"><%= link_to 'Twitter account', '/auth/twitter' %></li>
+              <li class="facebook"><%= link_to 'Facebook account', '/auth/facebook' %></li>
+              <li class="google last"><%= link_to 'Google Account', '/auth/google' %></li>
+            </ul>
+          </div>
+          
+          <div id="twitterEmailBox" style="display:none;">
+              <h3>Usuário twitter</h3>
+              <h3>Informe seu e-mail</h3>
+              <input id="twitterEmail" type="text" style="width:154px; padding:8px 10px; float:left;" value="Digite seu email" class="tc-lightgray" onfocus="$(this).removeClass('error'); if ($(this).hasClass('tc-lightgray')) { this.value = ''; this.className = '';}" onblur="if (this.value == '') { this.value = 'Digite seu usuário'; this.className = 'tc-lightgray';}" />
+              <a href="javascript:;" class="btn-entrar"></a>
+              <span class="break"><!-- --></span>
+              <span class="tc-red ts11" id="feedbackEmail"></span>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="cbm"><div class="cbl"><!-- --></div><div class="cbr"><!-- --></div></div>
+  <div class="pntDwn"><!-- --></div>
+</div>
+
+<script type="text/javascript">
+	$('#usernameLogin').bind('keydown', function(ev) {
+		if (ev.keyCode == 13) {
+			$('#loginBox .btn-entrar').click();
+		}
+	});
+
+	$('#usernameRegistration').bind('keydown', function(ev) {
+		if (ev.keyCode == 13) {
+			$('#loginBox .btn-registrar').click();
+		}
+	});
+	
+	$('#twitterEmail').bind('keydown', function(ev) {
+    if (ev.keyCode == 13) {
+      $('#twitterEmailBox .btn-entrar').click();
+    }
+  });
+	
+	$('#loginBox .btn-registrar').bind('click', function() {
+		var usernameField = $('#usernameRegistration');
+		var responseField = $('#availableUsername');
+		var message = 'Defina seu nome de usuário';
+
+		if (usernameField.val() == '' || usernameField.val() == message) {
+			usernameField.addClass('error');
+			usernameField.val(message);
+			return;
+		}
+
+    var params = {
+      username: usernameField.val()
+    };
+		
+    $.ajax({
+      url: '/users/new',
+      data: params,
+      dataType: 'json',
+      success: function(data) {
+        if (data.success) {
+          $('#registrationBox2').show();
+			    $('#loginBox').hide();
+			    GA.track('/site/cadastro/escolhe_rede');
+		    } else {
+		      responseField.removeClass('tc-gray').removeClass('tc-green').addClass('tc-red');
+          responseField.html('Usuário já cadastrado');
+		    }
+      } 
+    });
+    
+    GA.track('/site/cadastro/novo_cadastro/informe_user');
+  });
+
+  $('#loginBox .btn-entrar').bind('click', function() {
+    var responseField = $('#feedbackUsername');
+    var usernameField = $('#usernameLogin');
+		var message = 'Digite seu usuário';
+
+    responseField.removeClass('tc-error');
+		
+		if (usernameField.val() == '' || usernameField.val() == message) {
+			usernameField.addClass('error');
+			usernameField.val(message);
+
+			responseField.addClass('tc-red').removeClass('tc-green').removeClass('tc-gray');
+			responseField.html('Campo obrigatório.');
+
+			return;
+		}
+		
+		responseField.addClass('tc-gray').removeClass('tc-green').removeClass('tc-red');
+		responseField.html('Verificando usuário...');
+		
+		var params = {
+      username: usernameField.val()
+    };
+	
+    $.ajax({
+      url: '/authentication/create',
+			data: params,
+			dataType: 'json',
+      success: function(data) {
+				var redirectingMessage = 'Aguarde, você será redirecionado.';
+				if (data.twitter) {
+     //      responseField.addClass('tc-error').removeClass('tc-green').removeClass('tc-gray');
+					// responseField.html('O login via Twitter está temporariamente desabilitado.');
+					GA.trackRedirect('/site/cadastro/connect/twitter', '/auth/twitter');
+				} else if (data.facebook) {
+					responseField.html(redirectingMessage);
+					GA.trackRedirect('/site/cadastro/connect/facebook', '/auth/facebook');
+				} else if (data.google) {
+					responseField.html(redirectingMessage);
+					GA.trackRedirect('/site/cadastro/connect/google', '/auth/google');
+				} else {
+					responseField.removeClass('tc-gray').removeClass('tc-green').addClass('tc-red');
+					responseField.html('Usuário inexistente');
+				}
+      } 
+    });
+  });
+  var waitingResponse = false;
+  $('#twitterEmailBox .btn-entrar').bind('click', function() {
+		var responseField = $('#feedbackEmail');
+    var twitterEmail = $('#twitterEmail');
+    var message = 'Digite seu email';
+    
+    if (twitterEmail.val() == '' || twitterEmail.val() == message) {
+      twitterEmail.addClass('error');
+      twitterEmail.val(message);
+      return;
+    }
+		
+		if (waitingResponse) {
+		return;
+		}
+		
+    var params = {
+      email: twitterEmail.val()
+    };
+    $.ajax({
+      url: '/users/update_twitter_email',
+      data: params,
+      dataType: 'json',
+      success: function(data) {
+				waitingResponse = false;
+        if (data.success) {
+          var redirectingMessage = 'Aguarde, você será redirecionado.';
+          responseField.html(redirectingMessage);
+          GA.trackRedirect('/site/cadastro/connect/twitter/email_valido', '/');
+        } else {
+          responseField.removeClass('tc-gray').removeClass('tc-green').addClass('tc-red');
+          responseField.html('E-mail inválido');
+        }
+      } 
+    });
+    waitingResponse = true;
+    responseField.html("Aguarde");
+  
+	});
+	
+	var loginFail = function() {
+		var responseField = $('#feedbackUsername');
+		
+		responseField.removeClass('tc-gray').removeClass('tc-green').addClass('tc-red');
+		responseField.html('<%= flash[:notice] %>');
+		
+		$('#loginBox').show();
+		$('#registrationBox2').hide();
+	}
+
+	var registerFail = function() {
+		var responseField = $('#availableUsername');
+		
+		responseField.removeClass('tc-gray').removeClass('tc-green').addClass('tc-red');
+		responseField.html('<%= flash[:notice] %>');
+		
+		$('#loginBox').show();
+		$('#registrationBox2').hide();
+	}
+	
+	var collectEmail = function() {
+    var responseField = $('#feedbackEmail');
+    
+    responseField.removeClass('tc-gray').removeClass('tc-green').addClass('tc-red');
+    
+    $('#loginBox').hide();
+    $('#registrationBox2').hide();
+    $('#twitterEmailBox').show();
+  }
+	
+  <% if params['error'] -%>
+  	<% if params['error'] == 'collect_email' -%>  
+      collectEmail();
+    <% end -%>
+    <% if params['error'] == 'login' %>	
+				loginFail();
+		<% elsif params['error'] == 'register' %>
+				registerFail();
+		<% end -%>
+		GA.track('/site/cadastro/usuario_invalido');
+	<% else -%>
+		GA.track('/site/cadastro/novo_cadastro/escolhe_user');
+	<% end -%>
+</script> 

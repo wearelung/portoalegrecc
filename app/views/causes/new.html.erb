@@ -1,0 +1,527 @@
+<%= javascript_include_tag "fileuploader" %>
+<%= stylesheet_link_tag "fileuploader" %>
+<div id="mdlEscrever" class="modalBox">
+    <a class="close-button" href="javascript:;" onclick="ajustar()">close</a>
+    <div class="ctm">
+    <div class="mdlPin"><!-- --></div>
+    <h2>Escrever</h2> 
+    <div class="ctl"><!-- --></div><div class="ctr"><!-- --></div></div>
+    <div class="cml">
+        <div class="cmr">
+            <div class="cmm">
+                <div class="mdlIn escrever">
+                    <h3>Este é o seu espaço, Colabore!</h3>
+                    <p>Ajude a transformar a nossa cidade. Cadastre e compartilhe suas causas.</p>
+                
+                    <fieldset id="newCauseForm" class="mb15">
+                        <input name="id" type="hidden" value="<%= @cause.id %>"/>
+
+                        <!--
+                        <label for="author">Autor</label>
+                        <input id="author" name="author" type="text" style="width:300px;" value="<%= @user.name %>"/>
+												
+												<label for="author">Email</label>
+                        <input id="author" name="email" type="text" style="width:300px;" value="<%= @user.email %>"/>
+												
+												<label for="author">Telefone (opcional)</label>
+                        <input id="author" name="phone_no" type="text" style="width:300px;" value=""/>
+												
+												<label for="author">Telefone celular(opcional)</label>
+                        <input id="author" name="cell_phone_no" type="text" style="width:300px;" value=""/>
+                        -->
+                    
+                        <label for="title">Título</label>
+                        <input id="title" name="title" type="text" style="width:463px;float:left;" maxlength="80" />
+                        <span class="ctdor"><strong id="titleLimit">80</strong></span>
+
+                        <div style="clear: both;" />
+                        <label for="title">Imagem, vídeo ou localização no mapa</label>
+                        <div id="imgs">
+                          <a id="ft" alt="false" title="Inserir fotos" href="javascript:;"><div id="img_foto" /></a>
+                          <a id="vd" alt="false" title="Inserir vídeos" href="javascript:;"><div id="img_video" /></a>
+                          <a id="mp" alt="false" title="Inserir mapas" href="javascript:;"><div id="img_mapa" /></a>
+                        </div>
+                        <div style="clear: both;" />
+
+                        <div id="ft_add">
+                          <div id="upload_image">
+                          	<label for="image_file">Do computador</label>
+                          <div id="upload_button"></div>
+                                      </div>
+                          <div id="post_image">
+                          <label for="title">Imagem da web</label>
+                          <input id="image_url" name="image_url" type="text" style="width:305px;" maxlength="80" value="URL da imagem" /><br />
+                          <span>Se a URL estiver correta, a imagem será carregada abaixo</span>
+                          </div>
+                        </div>
+
+                        <div id="vd_add">
+                          <label for="title">YouTube ou Vimeo</label>
+                          <input id="title" name="video_url" type="text" style="width:463px;float:left;" maxlength="80" value="URL do vídeo" />
+                          <div style="clear: both;" />
+                          <span>Se a URL estiver correta, o vídeo será carregado abaixo</span>
+                          <hr />
+                        </div>
+
+                        <div id="mp_add">
+                          <label for="title">Mapa</label>
+                          <hr />
+                          <div style="clear: both;" />
+                          <div id="stv_map">
+                          </div>
+                        </div>
+
+                      	<div style="clear: both;" />
+                          <div id="videos">
+                            <a id="vd_seta_esq" title="Navegar esquerda" href="javascript:;"><div class="setas_esq" /></a>
+                            <a id="vd_seta_dir" title="Navegar direita" href="javascript:;"><div class="setas_dir" /></a>
+                            <table><tr></tr></table>
+                          </div>
+                          <div id="videos_espaco" style="clear: both; margin-bottom:90px" />
+                        <label for="abstract">Descrição</label>
+
+                        <!--
+                        <textarea id="abstract" name="abstract" style="width:463px;height:110px;float:left;" onkeyup="limitTextArea(this, 525, '#abstractLimit')" onblur="limitTextArea(this, 525, '#abstractLimit')"></textarea>
+                        -->
+                        
+                        <div style="width: 483px; height: 280px">
+                          <textarea id="abstract" name="abstract"></textarea>
+                        </div>
+
+                        <div class="local">    
+                            <label for="local">Local (CEP ou Rua)</label>
+                            <input id="local" name="local" type="text" style="width:245px;" value="<%= params[:local] %>" />
+                        </div>
+                        
+                        <div class="categoria">
+              <label>Categoria</label>
+              
+              <a href="javascript:;" class="combo">
+                  <span><%= @categories.first.name %></span>                                
+              </a>
+              
+                            <div class="combo-content hidden">
+                			<div class="scroll-pane">
+                                <ul class="comboLst">
+                                <% @categories.each do |category| %>
+																    <li><a id="category_<%= category.id %>" class="<%= category.id == 10 ? 'selected' : '' %>" href="javascript:;"> <%= category.name %></a></li>
+                                <% end %>
+                                </ul>
+                            </div>
+                        </div>
+                        </div>
+            <span class="break"><!-- --></span>
+                        
+                        <label for="tags">Tags</label>
+                        <input id="tags" name="tags" type="text" style="width:463px;" class="tc-lightgray" value="Exemplo: esporte; saúde; exercícios" onfocus="if ($(this).hasClass('tc-lightgray')) { this.value = ''; this.className = '';}" onblur="if (this.value == '') { this.value = 'Exemplo: esporte; saúde; exercícios'; this.className = 'tc-lightgray';}" />
+                      <span class="break"><!-- --></span>
+                      
+                      <div class="mt15">
+                          <input id="termos" class="fl" name="termos" type="checkbox" value="yes" checked="checked" />
+                          <label for="termos" class="label-checkbox">Li e concordo com os <a href="javascript:;" onclick="openModal('termos_de_uso');">Termos de Uso</a></label>
+                      </div>
+                      <span class="break"><!-- --></span>
+                    </fieldset>
+                
+                    <div class="boxBottom">
+                        <a href="javascript:;" class="btn fl postar">POSTAR</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="cbm"><div class="cbl"><!-- --></div><div class="cbr"><!-- --></div></div>
+    <div class="pntDwn"><!-- --></div>
+</div>
+<script type="text/javascript">
+  $('.boxBottom .postar').bind('click', function() {
+    $('#newCauseForm textarea[name=abstract]').val(CKEDITOR.instances.abstract.getData());
+  	var error = false;
+    var title = $('#newCauseForm input[name=title]');
+    title.removeClass('error');
+    if ((title.val() == '')||(title.val() == 'Digite o título da causa')) {
+      $(title).addClass('error');
+      $(title).val('Digite o título da causa');
+      $(title).focus(function() {
+      	$(this).removeClass('error');
+      	$(this).val('');
+      });
+       error = true;
+    }
+      
+    /*  
+    var email = $('#newCauseForm input[name=email]');
+    email.removeClass('error');
+		var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+    if (reg.test(email.val()) == false) {
+    	$(email).addClass('error');
+    	$(email).val('Digite um email válido');
+    	$(email).focus(function() {
+    		$(this).removeClass('error');
+    		$(this).val('');
+      });
+      error = true;
+    }
+    */
+        
+    var abstract = $('#newCauseForm textarea[name=abstract]');
+    abstract.removeClass('error');
+    if ((abstract.val() == '')||(abstract.val() == 'Digite o resumo da causa')) {
+    	$(abstract).addClass('error');
+     	$(abstract).val('Digite o resumo da causa');
+     	$(abstract).focus(function() {
+     		$(this).removeClass('error');
+     		$(this).val('');
+     	});
+      error = true;
+    }
+
+    $('#newCauseForm .label-checkbox').removeClass('error');    
+    if (!$('#newCauseForm input[name=termos]').attr('checked')) {
+    	error = true;
+    	$('#newCauseForm .label-checkbox').addClass('error');
+    }
+    	
+    if (!error) {
+    	var data = {
+        id: $('#newCauseForm input[name=id]').val(),
+    		author: $('#newCauseForm input[name=author]').val(),
+  			email: $('#newCauseForm input[name=email]').val(),
+	  		phone_no: $('#newCauseForm input[name=phone_no]').val(),
+	 	 		cell_phone_no: $('#newCauseForm input[name=cell_phone_no]').val(),
+        title: title.val(),
+        abstract: $('#newCauseForm textarea[name=abstract]').val(),
+        category: $('#newCauseForm .categoria a.selected').attr('id').replace('category_', ''),
+        latLng: [<%= params[:lat] %>, <%= params[:lng] %>],
+        district: '<%= params[:district] %>',
+        local: $('#newCauseForm input[name=local]').val(),
+        tags: $('#newCauseForm input[name=tags]').val() == 'Exemplo: esporte; saúde; exercícios' ? '' : $('#newCauseForm input[name=tags]').val()
+      	};
+        
+     	$.ajax({
+       	url: '<%= create_cause_path %>',
+       	data: data,
+       	dataType: 'json',
+       	success: function(result) {
+     			if (result.success) {
+       			data.url = result.data.url;                  
+           	$.closePopupLayer();
+           	map.createMarker(data);
+            GA.track('/site/cadastro/nova_causa/concluido/' + $('#newCauseForm .categoria a.selected').text());
+            // openFalapoaOptin(result.data.id);
+     			}
+       	} 
+     	});
+    }
+  });
+
+  $('.categoria .combo-content a').each(function(i) {
+    $(this).bind('click', function() {
+      var value = $(this).text();
+      var parent = $(this).parents('.combo-content').parent();
+      parent.find('span').html(value);
+      parent.find('.combo-content').addClass('hidden');
+      parent.find('.combo-content a').attr('class', '');
+      $(this).addClass('selected');
+    });
+  });
+  
+  $('.categoria .combo').bind('click', function() {
+    $(this).parent().find('.combo-content').toggleClass('hidden');
+  });
+
+  $('.categoria label').bind('click', function() {
+    $(this).parent().find('.combo-content').removeClass('hidden');
+  });
+
+  $('#newCauseForm input[name=title]').keyup(function() {
+    $('#titleLimit').text(80-$(this).val().length);
+  });
+
+  $('#imgs a').bind('click', function() {
+    var unclick = function(link){
+      link.find('div').css('background-position','');
+      link.attr('alt', "false");
+      var div = "#" + link.attr('id') + "_add";
+      $(div).hide();
+    }
+    
+    var id = $(this).attr('id');
+    var div = "#" + id + "_add";
+    var clicked = $(this).attr('alt');
+    if (id == "ft") { unclick($('#imgs #vd')); unclick($('#imgs #mp')); }
+    if (id == "vd") { unclick($('#imgs #ft')); unclick($('#imgs #mp')); }
+    if (id == "mp") { unclick($('#imgs #ft')); unclick($('#imgs #vd')); }
+    if (clicked == "true") {
+      $(this).find('div').css('background-position','');
+      $(this).attr('alt', "false");
+      $(div).hide();
+    } else {
+      $(this).find('div').css('background-position','-140px 0'); 
+      $(this).attr('alt', "true");
+      $(div).show();
+    }
+  });
+
+  $('#mdlEscrever input[name=video_url]').bind('keydown', function(ev) {
+    if (ev.keyCode == 13) {
+      var data = {
+          url: $('#mdlEscrever input[name=video_url]').val()
+      };
+      $.ajax({
+          url: '<%= check_video_cause_path %>',
+          data: data,
+          dataType: 'json',
+          success: function(result) {
+            if (result.rich_content.success) {
+              qtd_videos = qtd_videos + 1;
+              if (qtd_videos > 4) {
+                video_inicial = video_inicial + 1;
+                $('#videos table td').each(function(i){
+                  if (i < video_inicial || i > video_inicial + 3) {
+                    $(this).css('display', 'none');
+                  } else {
+                    $(this).css('display', '');
+                  }
+                })
+              }
+              if (result.rich_content.video_type == "youtube") {
+                $('#videos table tr:first').append('<td><input type="checkbox" value="' + result.rich_content.url + '" onclick="submit_video(this)"><iframe width="100" height="75" src="http://www.youtube.com/embed/'+ result.rich_content.video_id+'?wmode=transparent" frameborder="0" allowfullscreen></iframe></td>');
+              } else if (result.rich_content.video_type == "vimeo") {
+                $('#videos table tr:first').append('<td><input type="checkbox" value="' + result.rich_content.url + '" onclick="submit_video(this)"><iframe src="http://player.vimeo.com/video/' + result.rich_content.video_id + '?title=0&amp;byline=0&amp;portrait=0" width="100" height="75" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></td>');
+              }
+              $('#mdlEscrever input[name=video_url]').val("");
+              $('#videos').show();
+              $('#videos_espaco').show();
+            }
+          }
+      });
+    }
+  });
+
+  $('#mdlEscrever input[name=image_url]').bind('keydown', function(ev) {
+	if (ev.keyCode == 13) {
+		var url = $('#mdlEscrever input[name=image_url]').val();
+		var data = {
+          url: url,
+		  cause_id: $('#newCauseForm input[name=id]').val()
+      	};
+		$.ajax({
+          url: '<%= add_url_image_path %>',
+          data: data,
+          dataType: 'json',
+          success: function(result) {
+		  	if (result.rich_content.success) {
+				qtd_videos = qtd_videos + 1;
+				if (qtd_videos > 4) {
+					video_inicial = video_inicial + 1;
+					$('#videos table td').each(function(i){
+						if (i < video_inicial || i > video_inicial + 3) {
+							$(this).css('display', 'none');
+						} else {
+							$(this).css('display', '');
+						}
+					});
+				}
+				
+				$('#videos table tr:first').append('<td><input type="checkbox" value="' + result.rich_content.id + '" onclick="submit_image(this)"><img src="'+url+'" height="75" width="100" ></img></td>');
+				$('#videos').show();
+				$('#videos_espaco').show();
+				$('#mdlEscrever input[name=image_url]').val("");
+			}
+          }
+      });
+    }
+  });
+
+  $('#vd_seta_esq').bind('click', function() {
+    if (qtd_videos > 0) {
+      if (video_inicial > 0) {
+        video_inicial = video_inicial - 1;
+        $('#videos table td').each(function(i){
+          if (i < video_inicial || i > video_inicial + 3) {
+            $(this).css('display', 'none');
+          } else {
+            $(this).css('display', '');
+          }
+        })
+      }
+    }
+  });
+
+  $('#vd_seta_dir').bind('click', function() {
+    if (qtd_videos > 0) {
+      if (video_inicial < qtd_videos - 4) {
+        video_inicial = video_inicial + 1;
+        $('#videos table td').each(function(i){
+          if (i < video_inicial || i > video_inicial + 3) {
+            $(this).css('display', 'none');
+          } else {
+            $(this).css('display', '');
+          }
+        })
+      }
+    }
+  });
+  
+  $('#mdlEscrever input[name=image_url]').focus(function(){
+    if ($(this).val() == "URL da imagem") $(this).val("");
+  });
+
+  $('#mdlEscrever input[name=image_url]').blur(function(){
+    if ($(this).val() == "") $(this).val("URL da imagem");
+  });
+  
+  $('#mdlEscrever input[name=video_url]').focus(function(){
+    if ($(this).val() == "URL do vídeo") $(this).val("");
+  });
+
+  $('#mdlEscrever input[name=video_url]').blur(function(){
+    if ($(this).val() == "") $(this).val("URL do vídeo");
+  });
+	  
+</script>
+<script type="text/javascript">
+  var instance = CKEDITOR.instances['abstract'];
+  if(instance) {
+    CKEDITOR.remove(instance);
+  }
+
+  CKEDITOR.replace('abstract',
+  {
+    language: 'pt-br',
+    resize_enabled: false,
+    toolbar :
+    [
+      { name: 'basicstyles', items : [ 'Bold','Italic','Underline','Strike' ] },
+      { name: 'paragraph', items : [ 'NumberedList','BulletedList' ] },
+      { name: 'links', items : [ 'Link','Unlink' ] },
+    ]
+  });
+
+CKEDITOR.on( 'dialogDefinition', function( ev )
+	{
+		// Take the dialog name and its definition from the event data.
+		var dialogName = ev.data.name;
+		var dialogDefinition = ev.data.definition;
+ 
+		// Check if the definition is from the dialog we're
+		// interested on (the Link dialog).
+		if ( dialogName == 'link' )
+		{
+			// FCKConfig.LinkDlgHideAdvanced = true
+			dialogDefinition.removeContents( 'advanced' );
+ 
+			// FCKConfig.LinkDlgHideTarget = true
+			dialogDefinition.removeContents( 'target' );
+/*
+			var targetTab = dialogDefinition.getContents( 'target' );
+			var targetField = targetTab.get( 'linkTargetType' );
+			targetField[ 'default' ] = '_blank';
+*/
+		}
+ 
+ 
+	});
+  video_inicial = 0;
+  qtd_videos = 0;
+
+  var submit_video = function(ipt) {
+    if (ipt.checked == true) {
+      var data = {
+          url: ipt.value,
+          cause: $('#newCauseForm input[name=id]').val()
+      };
+      $.ajax({
+          url: '<%= add_video_cause_path %>',
+          data: data,
+          dataType: 'json',
+          success: function(result) {
+            ipt.value = result.rich_content.id;
+          }
+      });
+    } else {
+      var data = {
+          id: ipt.value
+      };
+      $.ajax({
+          url: '<%= remove_video_cause_path %>',
+          data: data,
+          dataType: 'json',
+          success: function(result) {
+            ipt.value = result.rich_content.url;
+          }
+      });
+    }
+  }
+
+  GA.track('/site/cadastro/nova_causa/tela_de_dados');
+</script>
+<script>
+	var showPhoto = function(id, fileName, responseJSON){
+		if (responseJSON.rich_content.success) {
+			qtd_videos = qtd_videos + 1;
+			if (qtd_videos > 4) {
+				video_inicial = video_inicial + 1;
+				$('#videos table td').each(function(i){
+					if (i < video_inicial || i > video_inicial + 3) {
+						$(this).css('display', 'none');
+					}
+					else {
+						$(this).css('display', '');
+					}
+				})
+			}
+			var url = responseJSON.rich_content.photo_url;
+			$('#videos table tr:first').append('<td><input type="checkbox" value="' + responseJSON.rich_content.id + '" onclick="submit_image(this)"><img src="' + url + '" height="75" width="100" ></img></td>');
+			$('#videos').show();
+			$('#videos_espaco').show();
+			
+		}
+	}      
+	function createUploader(){            
+	    var uploader = new qq.FileUploader({
+	        element: document.getElementById('upload_button'),
+	        action: '<%= upload_image_path %>',
+			params: { cause_id : $('#newCauseForm input[name=id]').val() },
+			onComplete: showPhoto,
+	        debug: true
+	    });           
+	}
+	
+	// in your app create uploader as soon as the DOM is ready
+	// don't wait for the window to load  
+	createUploader();  
+	
+	var submit_image = function(ipt) {
+	  var data = {
+          id: ipt.value
+      };
+      $.ajax({
+          url: '<%= manage_image_cause_path %>',
+          data: data,
+          dataType: 'json'
+      });
+  }
+
+  var processSVData = function(data, status) {
+    if (status==google.maps.StreetViewStatus.OK) {
+      $("#stv_map").html("<img src='http://maps.googleapis.com/maps/api/streetview?size=485x300&location=<%= params[:lat] %>,<%= params[:lng] %>&heading=250&fov=90&pitch=-10&sensor=false'></img>");
+    } else {
+      $("#stv_map").html("Street view não disponível<br /><br />");
+    }
+  }
+
+  var sv = new google.maps.StreetViewService();
+  var ll= new google.maps.LatLng(<%= params[:lat] %>, <%= params[:lng] %>);
+  sv.getPanoramaByLocation(ll, 50, processSVData);
+
+  var ajustar = function() {
+    $.closePopupLayer();
+    $("#left").height("900px");
+    $("#boxLeft").height("700px");
+    $("#inner").height("900px");
+    google.maps.event.trigger(_this.map, 'resize');
+    $(window).resize();
+  }
+</script>

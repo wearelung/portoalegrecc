@@ -1,0 +1,30 @@
+lzingano:
+  username:           "lzingano"
+  password:           "5678"
+  level:              0
+  twitter_user_id:    78
+  google_email:
+  facebook_id:
+  profile_image_url:
+  name:               "Lucas Zingano"
+
+rviana:
+  username:           "rviana"
+  password:           "12345"
+  level:              0
+  twitter_user_id:    
+  google_email:       "rviana@ionatec.com.br"
+  facebook_id:
+  profile_image_url:
+  name:               "Ricardo Viana"
+
+rviana2:
+  username:           "rviana2"
+  password:           "4567"
+  level:              0
+  twitter_user_id:    
+  google_email:       
+  facebook_id:        "98765"
+  profile_image_url:
+  name:               "Ricardo Viana"
+

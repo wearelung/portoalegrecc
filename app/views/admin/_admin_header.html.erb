@@ -1,0 +1,19 @@
+<div id="header">
+	<div id="headerContainer">				
+		<h1 id="logo">
+			<a href="javascript:;" title=""></a>
+		</h1>
+		<% if current_user -%>
+		<ul id="navigation">			
+			<li><%= link_to 'TODAS AS CAUSAS', show_causes_path %></li>
+			<% if current_user.level > 1 -%>
+			<li><%= link_to 'CAUSAS REJEITADAS', show_rejected_causes_path %></li>
+			<li><%= link_to 'USUÁRIOS', show_users_list_path %></li>
+			<% end -%>
+		</ul>
+		<div id="userInfo">
+			Bem vindo <a href="javascript:;"><b><%= current_user.name %></b></a> | <%= link_to 'Logout', :controller => :admin, :action => :logout %>
+		</div>
+		<% end -%>
+	</div>
+</div>

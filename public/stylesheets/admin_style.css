@@ -1,0 +1,100 @@
+body {margin:0; font-family:"Calibri","Lucida Unicode",Arial,Verdana,sans-serif;}
+
+#oldBrowsers {background:#000; width:400px; height:200px; position:absolute; top:50%; left:50%; margin:-100px 0 0 -200px; color:#FFF; display:none;}
+#oldBrowsers #logo {width:188px; margin:20px auto;}
+#oldBrowsers {text-align:center; padding:30px 0 0;}
+
+#header {background:#000;}
+#headerContainer {width:1100px; padding:20px 15px; margin:0 auto; position:relative;}
+
+#logo {margin:0; padding:0;}
+#logo a {width:130px; height:135px; display:block; text-indent:-9999px; background:url('../img/logo.png') no-repeat;}
+
+#navigation {position:absolute; bottom:-12px; right:0; list-style:none;}
+#navigation li {margin:0; padding:0; float:left; font-size:14px; font-weight:bold; border:1px solid;}
+#navigation li a {color:#999999; background:#333; text-decoration:none; padding:5px 10px; margin:0 5px;}
+#navigation li a:hover {background:#666; color:#FFF;}
+#navigation li.selected a {background:#F3F3F3; color:#000;}
+
+#userInfo {position:absolute; top:10px; right:10px; color:#FFF; font-size:12px;}
+#userInfo a {color:#CCC; text-decoration:none;}
+
+#container {width:1100px; padding:20px; margin:0 auto; background:#F3F3F3;}
+h2 {padding:0; margin:0 0 20px; font-size:30px;}
+
+.table-list {width:100%; margin-top:20px; border-collapse:collapse; font-size:12px;}
+.table-list th {padding:5px; font-weight:BOLD; text-align:left; background:#CCC; border:1px solid #CCC;}
+.table-list td {padding:5px; border-bottom:1px solid #F3F3F3; background:#FFF; vertical-align:top; border:1px solid #CCC;}
+.table-list tr:hover td {background:#E3E3E3;}
+
+.table-list th .current {
+  padding-right: 12px;
+  background-repeat: no-repeat;
+  background-position: right center;
+}
+
+.table-list th .asc {
+  background-image: url(/images/sort_asc.png);
+}
+
+.table-list th .desc {
+  background-image: url(/images/sort_desc.png);
+}
+
+/* buttons */
+.button,
+.button span {background-image:url('../img/spr_buttons.png'); color:#333;}
+
+.button {display:block; line-height:15px; padding-right:11px; margin-left:11px; margin-right:5px; float:left; position:relative; text-decoration:none; font-size:13px;}
+.button span {display:block; height:25px; padding:4px 4px 0 14px; margin-left:-11px; position:relative; white-space:nowrap;}
+
+.button-normal {background-position:100% 0;}
+.button-normal span {background-position:0 -30px;}
+
+.button-normal:hover {background-position:100% -60px;}
+.button-normal:hover span {background-position:0 -90px;}
+
+form {margin:0; padding:0;}
+fieldset {border:0; margin:0 0 10px 0; padding:0;}
+fieldset legend {display:block; font-size:20px; font-weight:bold; padding-bottom:10px;}
+
+form {background:#E5E5E5; padding:10px; border:1px solid #C9C9C9;}
+.form-border fieldset {padding:10px 15px 0; background:#F9F9F9; border:1px solid #CCC; -moz-border-radius:5px; -webkit-border-radius:5px;}
+.form {}
+.form .label-b {display:block;}
+.form .field {display:block; padding:4px; margin-bottom:20px; border:1px solid #CCC; -moz-border-radius:5px; -webkit-border-radius:5px; }
+.small-field {display:block; padding:2px; margin:2px 5px 0 0; border:1px solid #CCC; -moz-border-radius:5px; -webkit-border-radius:5px; font-size:12px;}
+
+.w30 {width:30px;}
+.w150 {width:150px;}
+.w200 {width:200px;}
+.w300 {width:300px;}
+select.w200 {width:210px;}
+.w400 {width:400px;}
+
+.h100 {height:100px;}
+
+.mr10 {margin-right:10px;}
+.pt17 {padding-top:17px !important;}
+
+
+
+.break {clear:both; display:block;}
+.left {float:left;}
+.right {float:right;}
+
+
+/* general structure */
+.input label {margin-top:10px; display:block;}
+.message {background:#FFC; padding:10px; margin-bottom:20px;}
+div.actions h3 {display:none;}
+div.actions ul {width:500px; height:30px; margin:0; padding:0;}
+div.actions li {float:left; margin:0 10px 0 0; padding:0; list-style:none; text-transform:uppercase;}
+div.actions li a {background:#333; text-decoration:none; padding:5px 10px; color:#FFF !important;}
+div.actions li a:hover {background:#111;}
+.checkbox label {display:inline;}
+.textarea textarea {width:500px; height:200px;}
+.text input {width:500px;}
+
+#UserAdminLoginForm .text input,
+#UserAdminLoginForm .password input {width:200px !important;}

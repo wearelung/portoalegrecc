@@ -1,0 +1,56 @@
+um: 
+  author: "Maitê"
+  category_id: 4
+  district: "Santo Antônio"
+  id: 1
+  is_rejected: false
+  latitude: 30.99
+  local: "90640-190"
+  longitude: 10.99
+  title: "Depósito de carros roubados"
+  user_id: 3
+  views: 161
+  submited: 1
+
+dois:
+  author: "Fernanda H."
+  category_id: 2
+  district: "Bomfim"
+  id: 2
+  is_rejected: false
+  latitude: 19.99
+  local: "R. Vasco da Gama, 295 - Bomfim, Porto Alegre - RS, 90420-110, Brasil"
+  longitude: 12.99
+  title: "Viaduto Perigoso"
+  user_id: 1
+  views: 79
+  submited: 1
+
+tres:
+  author: "Fernanda H."
+  category_id: 4
+  district: "Bomfim"
+  id: 3
+  is_rejected: false
+  latitude: 29.99
+  local: "R. Ramiro Barcelos, 1375-1417 - Bomfim, Porto Alegre - RS, 90035-002, Brasil"
+  longitude: 9.99
+  title: "Praça descuidada"
+  user_id: 2
+  views: 58
+  submited: 1
+
+quatro:
+  author: "Fernanda H."
+  category_id: 3
+  district: "Santo Antônio"
+  id: 4
+  is_rejected: false
+  latitude: 15.99
+  local: "90660-120"
+  longitude: 12.99
+  title: "Assaltos na Delfino Riet"
+  user_id: 1
+  views: 56
+  submited: 1
+

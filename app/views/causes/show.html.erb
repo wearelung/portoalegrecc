@@ -1,0 +1,505 @@
+<% require 'open-uri' %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt-BR" xmlns:fb="http://ogp.me/ns/fb#">
+	<head>
+		<title><%= @cause.title %>- <%= @cause.category.name %>| portoalegre.cc</title>
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+		<meta http-equiv="content-type" content="application/xhtml+xml; charset=utf-8" />
+		<meta name="distribution" content="global" />
+		<meta name="language" content="pt-br" />
+		<meta name="robots" content="follow, all" />
+		<meta name="description" content="<%= @cause.title %> - <%= @cause.category.name %>" />
+		<meta name="keywords" content="PortoAlegre.cc, Porto Alegre, poa, rs, rio grande do sul, Unisinos, <%= @cause.title %>, <%= @cause.category.name %>" />
+		<meta property="og:title" content="<%= @cause.title %>" />
+		<!--<meta property="og:url" content="<%= show_cause_url(@cause.category.name.urlize, @cause.title.urlize, @cause) %>" />-->
+		<meta property="og:url" content="<%= @cause.absolute_url %>" />
+		<meta property="og:image" content="http://www.portoalegre.cc/img/logo.png" />
+		<meta property="og:site_name" content="portoalegre.cc" />
+		<meta property="fb:admins" content="100002180867119" />
+		<link rel="author" href="" title="" />
+		<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+		<%= stylesheet_link_tag('modal') %>
+		<%= stylesheet_link_tag('jquery.jscrollpane') %>
+		<%= stylesheet_link_tag('screen') %> <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+		<%= javascript_include_tag('jquery-1.4.2.min') %>
+		<%= javascript_include_tag('jquery.mousewheel') %>
+		<%= javascript_include_tag('mwheelIntent') %>
+		<%= javascript_include_tag('jquery.jscrollpane.min') %>
+		<%= javascript_include_tag('jsii-1.0.0') %>
+		<%= javascript_include_tag('jquery.jmpopups-0.5.1') %>
+		<%= javascript_include_tag('jquery.twitter') %>
+		<%= javascript_include_tag('jquery-ui-1.8.11.custom.min') %>
+		<%= javascript_include_tag('jquery.cookie.js') %>
+		<%= javascript_include_tag('modal') %>
+		<%= javascript_include_tag('maps') %>
+		<%#=falapoa javascript_include_tag 'falapoa' %>
+		<%= javascript_include_tag "ckeditor/ckeditor.js"%>
+		<script type="text/javascript">
+			var lu = false;
+			MIN_ZOOM = 15;
+			MAX_ZOOM = 15;
+			jQuery(document).ready(function() {
+				map = new SmallMap(<%= @cause.latitude %>,<%= @cause.longitude %>);
+
+				var data = {
+					category_id: <%= @cause.category_id %>,
+					latLng: [<%= @cause.latitude %>,<%= @cause.longitude %>],
+					local: '<%= @cause.local %>',
+					url: '/'
+				}
+
+				var testMarker = new CauseMarker(data.latLng, data, map, true);
+				map.addMarker(testMarker);
+			});
+		</script>
+</head>
+<body class="internal">
+	<div id="fb-root"></div>
+	<script>
+		window.fbAsyncInit = function() {
+			FB.init({
+				appId : '211527138864379',
+				status : true,
+				cookie : true,
+				xfbml : true
+			});
+		};
+
+		// Load the SDK Asynchronously
+		(function(d){
+			var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+			if (d.getElementById(id)) {return;}
+			js = d.createElement('script'); js.id = id; js.async = true;
+			js.src = "//connect.facebook.net/en_US/all.js";
+			ref.parentNode.insertBefore(js, ref);
+		}(document));
+	</script>
+	<div id="inner">
+		<div id="maps">
+			<div class="link-screenlocker" onclick="goToMap()"></div>
+			<div id="mdlCausa2" class="blue-container pin-container-<%= @cause.category.id %>">
+			<div class="header">
+				<a href="/" class="close-button">close</a>
+			</div>
+			<div class="content">
+				<div class="ctm">
+					<div class="mdlPin">
+						<!-- -->
+					</div>
+					<h2><%= @cause.category.name %></h2>
+					<div class="ctl">
+						<!-- -->
+					</div>
+					<div class="ctr">
+						<!-- -->
+					</div>
+				</div>
+				<div class="cml">
+					<div class="cmr">
+						<div class="cmm">
+							<div class="mdlIn causa" id="mdlInCausa">
+								<div class="boxAutor">
+									<div>
+										<strong>
+											<%= I18n.l(@cause.created_at.to_date, :format => :long) %><br/>
+											<%= "#{@cause.local.split(',')[0]}, #{@cause.local.split(',')[1]}" %>
+										</strong>
+									</div>
+									<div class="ttls">
+										<h3><%= @cause.title %></h3>
+									</div>
+								</div>
+
+							<% if @cause.rich_contents.size > 0 -%>
+								<div class="rich_content_videos w500">
+								<div id="principal_video">
+								<% if @cause.rich_contents[0].video_type == "youtube" -%>
+                                	<iframe width="490" height="360" src="http://www.youtube.com/embed/<%= @cause.rich_contents.videos[0].video_id %>?wmode=transparent" frameborder="0" allowfullscreen></iframe>
+		                        <% elsif @cause.rich_contents[0].video_type == "vimeo" -%>
+		                            <iframe src="http://player.vimeo.com/video/<%= @cause.rich_contents.videos[0].video_id %>?title=0&amp;byline=0&amp;portrait=0" width="490" height="360" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+		                       <% elsif @cause.rich_contents[0].kind == 1 %>
+									<img src="<%= @cause.rich_contents[0].image_url%>" height="360" width="490" ></img>
+								<% end -%>
+		                        </div>
+								<div id="videos_s" style="display:block">
+									<%= hidden_field_tag 'qtd_videos_s', @cause.rich_contents.size %>
+			                       	<a id="vd_seta_esq" title="Navegar esquerda" href="javascript:;"><div class="setas_esq"></div></a>
+			                        <a id="vd_seta_dir" title="Navegar direita" href="javascript:;"><div class="setas_dir"></div></a>
+			                        <table>
+		                            	<tr>
+			        	                <% @cause.rich_contents.each_with_index do |rc, i| -%>
+				                            <% if rc.kind == 1%>
+																			<td>
+																				<a href="javascript:;">
+																					<img src="<%= rc.image_url %>" height="75" width="100" alt="image" value="<%= rc.image_url %>"></img>
+																				</a>
+																			</td>
+																		<% elsif rc.kind == 2%>
+																			<% if rc.video_type == "youtube" -%>
+					                        	    <td>
+					                        	    	<a href="javascript:;">
+					                        	    		<img src='http://img.youtube.com/vi/<%= rc.video_id %>/default.jpg' width="100" height="75" alt="youtube" value="<%= rc.video_id %>"></img>
+					                        	    	</a>
+					                        	    </td>
+					                            <% elsif rc.video_type == "vimeo" -%>
+					                                <td>
+					                                	<a href="javascript:;">
+					                                		<img src='<%= JSON.parse(open("http://vimeo.com/api/v2/video/#{rc.video_id}.json").read).first["thumbnail_small"] %>' width="100" height="75" alt="vimeo" value="<%= rc.video_id %>"></img>
+					                                	</a>
+					                                </td>
+					                            <% end -%>
+											<% end %>
+				                        <% end -%>
+				                        </tr>
+				                    </table>
+					            </div>
+								</div>
+						        <div id="videos_espaco_s" style="clear: both; margin-bottom:95px; display:block;"></div>
+						    <% else -%>
+						    <div class="rich_content_videos w500">
+									<div id="principal_video">
+										<div id="stv_show">
+						    		</div>
+						    	</div>
+						    </div>
+						    <% end -%>
+
+						    <div class="conteudo">
+									<div class="fl w210">
+										<span class="button button-autor"><span>AUTOR</span></span>
+										<div id="warning"></div>
+										<%= user_image(@cause.user) %>
+										<div class="userinfo">
+											<span class="userinfo-name"><%= @cause.user.name %></span>
+											<span class="userinfo-local"><%= @cause.user.location %></span>
+										</div>
+										<span class="break"><!-- --></span>
+										<span class="dotted-line"><!-- --></span>
+										<span class="button button-share"><span>SHARE</span></span>
+										<!-- AddThis Button BEGIN -->
+										<div class="addthis_toolbox addthis_default_style addthis_32x32_style">
+											<a class="addthis_button_facebook"></a>
+											<a class="addthis_button_twitter"></a>
+											<a class="addthis_button_email"></a>
+											<a class="addthis_button_orkut"></a>
+											<a class="addthis_button_compact"></a>
+										</div>
+										<script type="text/javascript">
+											var addthis_config = {
+												"data_track_clickback" : true
+											};
+										</script>
+										<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4d889daf1a5fa592"></script>
+										<!-- AddThis Button END --><span class="dotted-line"><!-- --></span>
+										<span class="button button-tags"><span>TAGS</span></span>
+										<p>
+											<%= @cause.tag_list %>
+										</p>
+									</div>
+									<div class="center-tab" id="class_abstract_div">
+									<% if (session[:user] && (@cause.user ==  session[:user] || session[:user].level == 2)) %>
+										<% if @cause.protocol == "-1" %>
+											<script>
+												jQuery(document).ready(function(){
+												  jQuery("#send_to_falapoa").click(function(){
+												    // openFalapoaOptin(<%= @cause.id %>);
+												  });
+												});
+											</script>
+											<a href='#' id='editar' >Editar</a>
+											<!-- | <a href="#" id="send_to_falapoa" style="font-weight: bold">Enviar ao Fala Porto Alegre</a> -->
+										<% end %>
+									<% end %>
+										<p>
+											<%= @cause.abstract %>
+										</p>
+									</div>
+								</div>
+								<% if @falapoa %>									
+									<%#= render :partial => 'falapoa' %>
+								<% end %>
+								<div class="boxComentario">
+									<div id="fb-root"></div>
+									<script>
+										window.fbAsyncInit = function() {
+											FB.init({
+												appId : '211527138864379',
+												status : true,
+												cookie : true,
+												xfbml : true
+											});
+
+											FB.Event.subscribe('xfbml.render', function(response) {
+												setTimeout("adjustSize()", 1000);
+											});
+										};
+
+										// Load the SDK Asynchronously
+										(function(d){
+											var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+											if (d.getElementById(id)) {return;}
+											js = d.createElement('script'); js.id = id; js.async = true;
+											js.src = "//connect.facebook.net/en_US/all.js";
+											ref.parentNode.insertBefore(js, ref);
+										}(document));
+									</script>									
+									<div class="fb-comments" data-href="<%= request.url %>" data-num-posts="30"></div>
+								</div>
+								<div class="right-tab">
+									<span class="title-bar tit-oferecimento">OFERECIMENTO</span>
+									<div class="right-tab-item-content mt10 mb10">
+										<a href="http://www.unisinos.br" target="_blank">Unisinos Porto Alegre</a>
+									</div>
+									<span class="title-bar tit-quemapoiaacausa">QUEM APOIA A CAUSA</span>
+									<div class="right-tab-item-content">
+										<div class="quemapoiaacausa-box">
+											<div>
+												<div class="quemapoiaacausa-box-pin">
+													Portoalegre.cc
+												</div>
+												<%# show_cause_url(@cause.category, @cause.title, @cause.id) %>
+												<iframe src="http://www.facebook.com/plugins/like.php?href=<%= @cause.absolute_url %>&amp;layout=standard&amp;show_faces=true&amp;width=180&amp;action=like&amp;font&amp;colorscheme=light&amp;height=80&amp;locale=pt_BR" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:180px; height:110px; margin-top:10px;" allowTransparency="true"></iframe>
+												</div>
+												</div>
+												<span class="w180 dotted-line"><!-- --></span>
+												</div>
+												<% if !@cause.related_causes.empty? %> <span class="title-bar tit-vejatambem">VEJA TAMBÉM</span>
+												<div class="right-tab-item-content">
+												Outras causas parecidas
+												<ul class="link-list">
+												<% @cause.related_causes.each do |cause| %>
+												<li>
+												<%= link_to cause.title, show_cause_path(cause.category.name.urlize, cause.title.urlize, cause) %>
+												</li>
+												<% end %>
+												</ul>
+												<span class="w180 dotted-line"><!-- --></span>
+												</div>
+												<% end %>
+												<% if !@cause.same_neighborhood_causes.empty? %> <span class="title-bar tit-maisnestebairro">MAIS NESTE BAIRRO</span>
+												<div class="right-tab-item-content">
+												<ul class="link-list">
+												<% @cause.same_neighborhood_causes.each do |cause| %>
+												<li>
+												<%= link_to cause.title, show_cause_path(cause.category.name.urlize, cause.title.urlize, cause) %>
+												</li>
+												<% end %>
+												</ul>
+											</div>
+										<% end %>
+									</div>
+								<span class="break"><!-- --></span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="footer">
+					<!--  -->
+				</div>
+			</div>
+		</div>
+		<%= render :partial => '/application/top' %>
+		<%= render :partial => 'left2' %>
+		<%= render :partial => '/application/footer' %> <span class="break"><!--  --></span>
+
+		<script type="text/javascript">
+			var addthis_share = {
+				templates: {
+					twitter: '<%=h @cause.title %> #portoalegrecc http://www.portoalegre.cc<%= @cause.url %>'
+				}
+			}
+		</script>
+		</div>
+		<script type="text/javascript">
+			//<![CDATA[
+			var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+			document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+			//]]>
+		</script>
+		<script type="text/javascript">
+		//<![CDATA[
+		var UID = "UA-22103323-1";
+		var GA = new GoogleAnalytics(UID);
+		GA.track('/site<%= show_cause_path(@cause.category.name.urlize, @cause.title.urlize, @cause) %>');
+				//]]>
+		</script>
+		<script type="text/javascript">
+
+			$(document).ready(function() {
+				$('#editar').bind('click', function() {
+					//window.location.replace('<%= edit_cause_path(@cause) %>')
+					$.openPopupLayer({
+						name: 'mdlEscrever',
+						width: 710,
+						url: '<%= edit_cause_path(@cause) %>',
+						parameters: {
+							lat: <%= @cause.latitude %>,
+							lng: <%= @cause.longitude %>,
+							local: '<%= @cause.local %>',
+							district: '<%= @cause.district %>'
+						}, success: function() {
+							$('#newCauseForm input[name=title]').focus();
+							$("#left").height("1035px");
+							$(window).resize();
+						}
+					});
+				});
+
+				$('#top .busca').bind('click', function() {
+					var value = $(this).prev().val();
+					goToMap(value);
+				});
+
+				$('#top input[name=busca]').bind('keydown', function(ev) {
+					if(ev.keyCode == 13) {
+						goToMap(this.value);
+					}
+				});
+
+				$('#bairroButton').click(function() {
+					if ($("#comboDistricts").css("visibility") == "hidden") {
+						$(this).css("font-weight", "bold");
+						$(this).parent().css("background-color", "#edf5f7");
+						$('#comboDistricts').removeClass('hidden');
+					} else {
+						$(this).css("font-weight", "");
+						$(this).parent().css("background-color", "");
+						$('#comboDistricts').addClass('hidden');
+					}
+				});
+				
+				$('#loginButton').bind('click', function() {
+					openLogin();
+				});
+
+
+				$('#top .combo').bind('click', function() {
+					$('#comboDistricts').toggleClass('hidden');
+				});
+
+				$('#comboDistricts a').bind('click', function() {
+					var value = $(this).text();
+					var parent = $(this).parents('.combo-content').parent();
+					//      parent.find('span').html(value);
+					parent.find('.combo-content').addClass('hidden');
+					parent.find('.combo-content a').attr('class', '');
+					$(this).addClass('selected');
+					$('#top input[name=busca]').val('');
+					$("#bairroButton").css("font-weight", "");
+					$("#bairroButton").parent().css("background-color", "#FFFFFF");
+					goToMap(value);
+				});
+
+				$('#videos_s table a').bind('click', function() {
+					var video_type = $(this).find("img").attr('alt');
+					var v = '';
+					if (video_type == "youtube") {
+						v = '<iframe width="490" height="360" src="http://www.youtube.com/embed/' + $(this).find("img").attr('value') + '?autoplay=1&wmode=transparent" frameborder="0" allowfullscreen></iframe>'
+					}
+					if (video_type == "vimeo") {
+						v = '<iframe src="http://player.vimeo.com/video/' + $(this).find("img").attr('value') + '?title=0&amp&autoplay=true;byline=0&amp;portrait=0" width="490" height="360" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen>'
+					}
+					if (video_type == "image") {
+						v = '<img src="'+ $(this).find("img").attr('value') +'" height="360" width="490" ></img>'
+					}
+					$("#principal_video").html(v);
+				});
+			});
+		</script>
+	</body>
+
+<script type="text/javascript">
+ $('#videos #vd_seta_esq').live('click', function() {
+    if (qtd_videos > 0) {
+      if (video_inicial > 0) {
+        video_inicial = video_inicial - 1;
+        $('#videos table td').each(function(i){
+          if (i < video_inicial || i > video_inicial + 3) {
+            $(this).css('display', 'none');
+          } else {
+            $(this).css('display', '');
+          }
+        })
+      }
+    }
+  });
+
+  $('#videos #vd_seta_dir').live('click', function() {
+	if (qtd_videos > 0) {
+	  if (video_inicial < qtd_videos - 4) {
+        video_inicial = video_inicial + 1;
+        $('#videos table td').each(function(i){
+          if (i < video_inicial || i > video_inicial + 3) {
+            $(this).css('display', 'none');
+          } else {
+            $(this).css('display', '');
+          }
+        })
+      }
+    }
+  });
+  	video_inicial_s = 0;
+  	qtd_videos_s = parseInt(jQuery("#qtd_videos_s").val());
+    if (qtd_videos_s > 0) {
+    $('#videos_s table td').each(function(i){
+	  if (i < video_inicial_s || i > video_inicial_s + 3) {
+        $(this).css('display', 'none');
+      } else {
+        $(this).css('display', '');
+	  }
+    });
+      
+  }
+</script>
+<script type="text/javascript">
+$(document).ready(function() {
+	$('#videos_s #vd_seta_esq').bind('click', function() {
+	  if (qtd_videos_s > 0) {
+	    if (video_inicial_s > 0) {
+	      video_inicial_s = video_inicial_s - 1;
+	      $('#videos_s table td').each(function(i){
+	        if (i < video_inicial_s || i > video_inicial_s + 3) {
+	          $(this).css('display', 'none');
+	        } else {
+	          $(this).css('display', '');
+	        }
+	      })
+	    }
+	  }
+	});
+
+	$('#videos_s #vd_seta_dir').bind('click', function() {
+	if (qtd_videos_s > 0) {
+	  if (video_inicial_s < qtd_videos_s - 4) {
+	      video_inicial_s = video_inicial_s + 1;
+	      $('#videos_s table td').each(function(i){
+	        if (i < video_inicial_s || i > video_inicial_s + 3) {
+	          $(this).css('display', 'none');
+	        } else {
+	          $(this).css('display', '');
+	        }
+	      })
+	    }
+	  }
+	});
+});
+</script>
+<script type="text/javascript">
+	var adjustSize = function() {
+		$(window).resize();
+		$("#inner").height($(".fb_iframe_widget").height() + $("#class_abstract_div").height() + 1200);
+	}
+
+	var processSVData = function(data, status) {
+    if (status==google.maps.StreetViewStatus.OK) {
+      $("#stv_show").html("<img src='http://maps.googleapis.com/maps/api/streetview?size=485x300&location=<%= @cause.latitude %>,<%= @cause.longitude %>&heading=250&fov=90&pitch=-10&sensor=false'></img>");
+    }
+  }
+
+  var sv = new google.maps.StreetViewService();
+  var ll= new google.maps.LatLng(<%= @cause.latitude %>,<%= @cause.longitude %>);
+  sv.getPanoramaByLocation(ll, 50, processSVData);
+</script>
+</html>

@@ -1,0 +1,10 @@
+Bem-vindo <%= @user.name %> <%= link_to "Logout", logout_path %> <br /><br />
+
+<%= link_to user_image(@user) %><br />
+Usuário: <%= @user.username %><br />
+Nível: <%= @user.level %><br />
+
+<% if @user.location %>
+  Localização: <%= @user.location %>
+<% end %>
+

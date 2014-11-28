@@ -1,0 +1,79 @@
+#new_top #container {
+    width:225px;
+    height:100%;
+    position:relative;
+    display: none;
+}
+
+
+/*-------------
+SEARCH
+-------------*/
+
+#searchForm fieldset {
+    width:240px;/* 240*/
+    position:relative;
+    display:block;
+}
+
+#searchForm{
+	margin-left: 5px;
+}
+
+div.input {
+    width:20px;
+    padding:3px 0px 6px 6px;
+    border:1px solid #bcc6c8;
+		border-radius: 5px;
+    float:left;
+    background:#dfe7e9;
+    margin-top: 4px;
+		background: #dfe7e9; /* Old browsers */
+		background: -moz-linear-gradient(top, #dfe7e9 0%, #f7f9f8 100%); /* FF3.6+ */
+		background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#dfe7e9), color-stop(100%,#f7f9f8)); /* Chrome,Safari4+ */
+		background: -webkit-linear-gradient(top, #dfe7e9 0%,#f7f9f8 100%); /* Chrome10+,Safari5.1+ */
+		background: -o-linear-gradient(top, #dfe7e9 0%,#f7f9f8 100%); /* Opera 11.10+ */
+		background: -ms-linear-gradient(top, #dfe7e9 0%,#f7f9f8 100%); /* IE10+ */
+		background: linear-gradient(top, #dfe7e9 0%,#f7f9f8 100%); /* W3C */
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#dfe7e9', endColorstr='#f7f9f8',GradientType=0 ); /* IE6-9 */
+}
+
+input#s {
+	  margin-left: 3px;
+    width:160px;
+    height: 25px;
+		border:0;
+    background:transparent;
+    color:#000;
+    text-shadow:0 1px 1px #fff;
+    outline: none;
+		font-size: 16px;
+}
+
+input#searchSubmit {
+    width:19px;
+    height:19px;
+    text-indent:-9999px;
+    overflow:hidden;
+    background:url(../images/lupa.png) no-repeat;
+    border:0;
+    position:absolute;
+    top:7px; right:13px;
+    z-index:5;
+    display:block;
+    cursor:pointer;
+    float: left;
+}
+
+#new_top #search_icon{
+	margin-top: 12px;
+	margin-right: 5px;
+  cursor:pointer;
+}
+
+#new_top #submit_icon {
+	margin-top: 2px;
+  cursor:pointer;
+	float: left;
+	display: inline;
+}

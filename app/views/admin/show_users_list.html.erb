@@ -1,0 +1,37 @@
+<h2>USUÁRIOS (<%=h @users.total_entries %>)</h2>
+<h3>Facebook (<%=h @facebook_users.first.users %>) | Twitter(<%=h @twitter_users.first.users %>) | Google (<%=h @gmail_users.first.users %>)</h3>
+<% unless @users2.empty? %><span class="break"><a href= "/reports/users.csv">(Exportar para excel)</a></span><% end %>				
+				
+<div align="right">
+  <%= will_paginate @users, :previous_label => "&laquo; Anterior", :next_label => "Próximo &raquo;" %>
+</div>  				
+<table class="table-list" id="table-users">
+	<tr>
+		<th style="width:50px;"> </th>
+		<th style="width:100px;"><%= user_sortable 'username', "User" %></th>
+		<th style="width:100px;"><%= user_sortable 'name', "Nome" %></th>						
+		<th style="width:100px;"><%= user_sortable 'last_sign_in', "Último login" %></th>															
+		<th style="width:100px;"><%= user_sortable 'location', "Local" %></th>
+		<th style="width:100px;"><%= user_sortable 'twitter_user_id', "Twitter" %></th>						
+		<th style="width:100px;"><%= user_sortable 'facebook_id', "Facebook" %></th>
+		<th style="width:100px;"><%= user_sortable 'google_email', "Google" %></th>															
+														
+	</tr>
+	<% @users.each do |user| %>
+					
+		<tr id="user-<%= user.id %>">
+			<td><%=image_tag user.profile_image_url, :width => "45px", :height => "45px", :alt => "Sem imagem" if user.profile_image_url %></td>
+			<td><%=h user.username %></td>
+			<td><%=h user.name %></td>							
+			<td><%=h user.last_sign_in %></td>
+			<td><%=h user.location %></td>																									
+			<td><%=h user.twitter_user_id.nil? ? "não" : "sim" %></td>							
+			<td><%=h user.facebook_id.nil? ? "não" : "sim" %></td>
+			<td><%=h user.google_email.nil? ? "não" : "sim" %></td>																									
+		</tr>
+	
+	<% end %>					
+</table>
+<div align="right">
+  <%= will_paginate @users, :previous_label => "&laquo; Anterior", :next_label => "Próximo &raquo;" %>
+</div>        

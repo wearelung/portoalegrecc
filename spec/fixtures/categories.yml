@@ -1,0 +1,47 @@
+meio_ambiente:
+ id: 1
+ name: "Meio-ambiente"
+
+empreendendorismo:
+ id: 2
+ name: "Empreendendorismo"
+
+mobilidade_urbana:
+ id: 3
+ name: "Mobilidade urbana"
+
+tecnologia:
+ id: 4
+ name: "Tecnologia"
+
+cultura:
+ id: 5
+ name: "Cultura"
+
+esportes:
+ id: 6
+ name: "Esportes e Lazer"
+
+saude:
+ id: 7
+ name: "Saúde e Bem-estar"
+
+educacao:
+ id: 8
+ name: "Educação"
+
+seguranca:
+ id: 9
+ name: "Segurança"
+ 
+cidadania:
+ id: 10
+ name: "Cidadania"
+ 
+urbanismo:
+ id: 11
+ name: "Urbanismo"
+ 
+turismo:
+ id: 12
+ name: "Turismo"

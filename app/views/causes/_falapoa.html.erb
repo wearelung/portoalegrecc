@@ -1,0 +1,54 @@
+<div class="boxFalaPoa">
+	<div id="logoFalaPoa"><%= image_tag "fala_poa/fala_poa_logo.png" %></div>
+	<title class="fp-title">STATUS DA CAUSA NO FALA PORTO ALEGRE</title>
+	<div class="info">
+		<div class="icon"><%= image_tag "fala_poa/calendar.png" %></div>
+		<span class="date"><%= l @cause.created_at.to_date, :format => :simple %></span>
+		<span>Data de criação</span>
+	</div>
+	<div class="info">
+		<div class="icon"><%= image_tag "fala_poa/protocol.png" %></div>
+		<span class="title">Protocolo</span>
+		<span><%= @cause.protocol %></span>
+	</div>
+	<div class="info">
+		<div class="icon"><%= image_tag "fala_poa/status.png" %></div>
+		<span class="title">Status da causa</span>
+		<span><%= @falapoa['status'].upcase %></span>
+	</div>
+	<% if @falapoa['status'] == "Ativo" %>
+		<div class="info medium">
+			<div class="icon"><%= image_tag "fala_poa/status.png" %></div>
+			<span class="title">Trâmite</span>
+			<span><%= @falapoa['proceeding']%></span>
+		</div>
+		<% unless @falapoa['due_date'].nil? %>
+			<div class="info medium">
+				<div class="icon"><%= image_tag "fala_poa/clock.png" %></div>
+				<span class="title">Dias de prazo</span>
+				<span><%= @falapoa['due_date']%></span>
+			</div>
+		<% end %>
+		<% unless @falapoa['destination'].nil? %>
+			<div class="info large">
+				<div class="icon"><%= image_tag "fala_poa/destination.png" %></div>
+				<span class="title">Destino</span>
+				<span><%= @falapoa['destination']%></span>
+			</div>
+		<% end %>
+		<% unless @falapoa['service'].nil? %>
+			<div class="info large">
+				<div class="icon"><%= image_tag "fala_poa/service.png" %></div>
+				<span class="title">Serviço</span>
+				<span><%= @falapoa['service'] %></span>
+			</div>
+		<% end %>
+	<% end %>
+	<% unless @falapoa['last_update'].nil? %>
+		<div class="info">
+			<div class="icon"><%= image_tag "fala_poa/calendar.png" %></div>
+			<span class="date"><%= l @falapoa['last_update'].to_date, :format => :simple %></span>
+			<span>Última atualização</span>
+		</div>
+	<% end %>
+</div>

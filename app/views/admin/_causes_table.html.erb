@@ -1,0 +1,50 @@
+<div align="right">
+	<%= will_paginate @causes, :previous_label => "&laquo; Anterior", :next_label => "Próximo &raquo;" %>
+</div>	
+<table class="table-list" id="table-causes">
+	<tr>
+		<th style="width:100px;"><%= cause_sortable 'categories.name', "Categoria" %></th>
+		<th style="width:100px;"><%= cause_sortable 'title', "Título" %></th>
+		<th style="width:100px;"><%= cause_sortable 'author', "Autor" %></th>
+		<th><%= cause_sortable 'abstract', "Resumo" %></th>
+		<th style="width:100px;"><%= cause_sortable 'local', "Local" %></th>
+		<th style="width:100px;"><%= cause_sortable 'district', "Bairro" %></th>
+		<th style="width:100px;"><%= cause_sortable 'created_at', "Data" %></th>
+		<th style="width:50px;"><%= cause_sortable 'views', "Views" %></th>
+		<th style="width:50px;"><%= cause_sortable 'likes', "Likes "%></th>
+		<th style="width:50px;">Protocolo FalaPoa</th>
+		<th style="width:90px;">Ações</th>
+	</tr>
+	<% @causes.each do |cause| %>
+		<tr id="cause-<%= cause.id %>">
+			<td><%=h cause.category.name %></td>
+			<td><%=h cause.title %></td>							
+			<td><%=h cause.author %></td>
+			<td><%= cause.abstract %></td>																									
+			<td><%=h cause.local %></td>
+			<td><%=h cause.district %></td>							
+			<td><%=h cause.created_at %></td>
+			<td><%=h cause.views %></td>
+			<td><%=h cause.likes %></td>		
+			<td><%=h cause.protocol %>																							
+			<td>
+				<%= link_to "<span>Ver no mapa</span>", cause.url, :class => "button button-normal", :target => "_blank" %>
+			
+				<% if current_user.level > 1 -%>
+					<% if cause.is_rejected %>
+						<%= link_to "<span>Aceitar</span>", "/admin/accept_cause/#{cause.id}", :class => "button button-normal" %>
+					<% else -%>
+						<%= link_to "<span>Rejeitar</span>", "/admin/reject_cause/#{cause.id}", :class => "button button-normal" %>
+					<% end -%>
+					<%= link_to "<span>Atualizar likes</span>", "/admin/update_cause_likes/#{cause.id}", :class => "button button-normal" %>
+				<% end -%>																			
+			</td>						
+		</tr>
+	
+	<% end %>					
+</table>
+
+<br />
+<div align="right">
+	<%= will_paginate @causes, :previous_label => "&laquo; Anterior", :next_label => "Próximo &raquo;" %>
+</div>

@@ -1,0 +1,42 @@
+# -*- encoding: utf-8 -*-
+
+Gem::Specification.new do |s|
+  s.name = "color"
+  s.version = "1.4.1"
+
+  s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
+  s.authors = ["Austin Ziegler", "Matt Lyon"]
+  s.cert_chain = ["-----BEGIN CERTIFICATE-----\nMIIDNjCCAh6gAwIBAgIBADANBgkqhkiG9w0BAQUFADBBMQ8wDQYDVQQDDAZhdXN0\naW4xGTAXBgoJkiaJk/IsZAEZFglydWJ5Zm9yZ2UxEzARBgoJkiaJk/IsZAEZFgNv\ncmcwHhcNMDcxMTMwMDE0OTAwWhcNMDgxMTI5MDE0OTAwWjBBMQ8wDQYDVQQDDAZh\ndXN0aW4xGTAXBgoJkiaJk/IsZAEZFglydWJ5Zm9yZ2UxEzARBgoJkiaJk/IsZAEZ\nFgNvcmcwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDOSg1riVV22ord\nq0t4YVx57GDPMqdjlnQ5M7D9iBnnW0c8pifegbb0dm+mC9hJSuPtcJS53+YPTy9F\nwlZbjI2cN+P0QLUUTOlZus2sHq7Pr9jz2nJf8hCT7t5Vlopv1N/xlKtXqpcyEkhJ\nJHTrxe1avGwuq8DIAIN01moQJ+hJlgrnR2eRJRazTGiXKBLGAFXDl/Agn78MHx6w\npzZ2APydo6Nuk7Ktq1MvCHzLzCACbOlYawFk3/9dbsmHhVjsi6YW+CpEJ2BnTy8X\nJBXlyNTk1JxDmcs3RzNr+9AmDQh3u4LcmJnWxtLJo9e7UBxH/bwVORJyf8dAOmOm\nHO6bFTLvAgMBAAGjOTA3MAkGA1UdEwQCMAAwCwYDVR0PBAQDAgSwMB0GA1UdDgQW\nBBT9e1+pFfcV1LxVxILANqLtZzI/XTANBgkqhkiG9w0BAQUFAAOCAQEAhg42pvrL\nuVlqAaHqV88KqgnW2ymCWm0ePohicFTcyiS5Yj5cN3OXLsPV2x12zqvLCFsfpA4u\nD/85rngKFHITSW0h9e/CIT/pwQA6Uuqkbr0ypkoU6mlNIDS10PlK7aXXFTCP9X3f\nIndAajiNRgKwb67nj+zpQwHa6dmooyRQIRRijrMKTgY6ebaCCrm7J3BLLTJAyxOW\n+1nD0cuTkBEKIuSVK06E19Ml+xWt2bdtS9Wz/8jHivJ0SvUpbmhKVzh1rBslwm65\nJpQgg3SsV23vF4qkCa2dt1FL+FeWJyCdj23DV3598X72RYiK3D6muWURck16jqeA\nBRvUFuFHOwa/yA==\n-----END CERTIFICATE-----\n"]
+  s.date = "2010-02-07"
+  s.description = "The capabilities of the Color library are limited to pure mathematical\nmanipulation of the colours based on colour theory without reference to colour\nprofiles (such as sRGB or Adobe RGB). For most purposes, when working with the\nRGB and HSL colours, this won't matter. However, some colour models (like CIE\nL*a*b*) are not supported because Color does not yet support colour profiles,\ngiving no meaningful way to convert colours in absolute colour spaces (like\nL*a*b*, XYZ) to non-absolute colour spaces (like RGB)."
+  s.email = ["austin@rubyforge.org", "matt@postsomnia.com"]
+  s.extra_rdoc_files = ["History.txt", "Install.txt", "Licence.txt", "Manifest.txt", "README.txt"]
+  s.files = ["History.txt", "Install.txt", "Licence.txt", "Manifest.txt", "README.txt"]
+  s.homepage = "http://color.rubyforge.org/"
+  s.rdoc_options = ["--main", "README.txt"]
+  s.require_paths = ["lib"]
+  s.rubyforge_project = "color"
+  s.rubygems_version = "1.8.19"
+  s.summary = "Colour management with Ruby"
+
+  if s.respond_to? :specification_version then
+    s.specification_version = 3
+
+    if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
+      s.add_development_dependency(%q<rubyforge>, [">= 2.0.3"])
+      s.add_development_dependency(%q<gemcutter>, [">= 0.3.0"])
+      s.add_development_dependency(%q<archive-tar-minitar>, ["~> 0.5.1"])
+      s.add_development_dependency(%q<hoe>, [">= 2.5.0"])
+    else
+      s.add_dependency(%q<rubyforge>, [">= 2.0.3"])
+      s.add_dependency(%q<gemcutter>, [">= 0.3.0"])
+      s.add_dependency(%q<archive-tar-minitar>, ["~> 0.5.1"])
+      s.add_dependency(%q<hoe>, [">= 2.5.0"])
+    end
+  else
+    s.add_dependency(%q<rubyforge>, [">= 2.0.3"])
+    s.add_dependency(%q<gemcutter>, [">= 0.3.0"])
+    s.add_dependency(%q<archive-tar-minitar>, ["~> 0.5.1"])
+    s.add_dependency(%q<hoe>, [">= 2.5.0"])
+  end
+end

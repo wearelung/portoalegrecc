@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+irb = RUBY_PLATFORM =~ /(:?mswin|mingw)/ ? 'irb.bat' : 'irb'
+
+opts = %w[ --simple-prompt ]
+opts << '-rirb/completion'
+opts << '-rlib/load_fixtures'
+
+exec irb, '-Ilib:test', *opts

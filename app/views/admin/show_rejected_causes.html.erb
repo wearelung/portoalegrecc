@@ -1,0 +1,18 @@
+<h2>CAUSAS REJEITADAS (<%=h @causes2.empty? ? "nenhuma causa" : @causes2.size %>)</h2>				
+
+<% form_tag show_rejected_causes_path do %>
+	<%= label_tag "autor" %>
+	<%= text_field_tag (:author, params[:author], :size => 18) %>
+	<%= label_tag "título" %>
+	<%= text_field_tag (:title, params[:title], :size => 18) %>
+	<%= label_tag "resumo" %>
+	<%= text_field_tag (:abstract, params[:abstract], :size => 18) %>
+	<%= label_tag "categoria" %>
+	<%= select_tag :category, options_from_collection_for_select(@categories, 'id', 'name', params[:category].to_i) %>
+	<%= submit_tag 'filtrar' %>
+<% end %>
+<br/>
+
+<% unless @causes2.empty? %><span class="break"><a href= "/reports/rejected_causes.csv">(Exportar para excel)</a></span><% end %>				
+
+<%= render :partial => 'causes_table' %>

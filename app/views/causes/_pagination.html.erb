@@ -1,0 +1,20 @@
+<script>
+	jQuery('.pagination a').click(function() {
+     $.get(this.href, null, null, "script");
+    return false;
+  });
+</script>
+<% @causes.each do |cause| %>
+	<div class='cause-entry'>
+		<span class='searchPin'>
+		  <img src='/img/pin_<%= cause.category_id %>.png' />
+		</span>
+		<span class='cause-title'><%= link_to cause.title, cause.url %></span>&nbsp;&nbsp;&nbsp;
+		<span style='color: #7a7a7a; font-size: 13px;'><%= cause.district %></span>
+		<br />
+		<span style='font-size: 14px;'>
+		  <%= truncate(cause.abstract, :length => 110, :separator => ' ') %>
+		</span>
+	</div>
+<% end %>
+<%= will_paginate @causes, :next_label => "&nbsp;", :prev_label => "&nbsp;" %>

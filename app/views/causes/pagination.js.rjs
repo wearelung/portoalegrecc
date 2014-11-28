@@ -1,0 +1,10 @@
+page.replace_html 'causes', :partial => 'pagination'
+if @causes.empty?
+  text = 'Nenhum resultado foi encontrado.<br />'
+elsif @causes.length == 1 
+  text = 'Foi encontrado 1 item com o termo usado.<br />'
+else
+  text = %{Foram encontrados #{@causes.total_entries}  itens com o termo usado.<br /> }
+end
+
+page.replace_html 'n_entries', text
